@@ -11,6 +11,12 @@ const sqlTables = fs.readFileSync("tables.sql", "utf8");
 
 // Leer el contenido del archivo SQL
 const sqlUsuarios = fs.readFileSync("usuarios.sql", "utf8");
+
+const queries1 = sqlUsuarios .split(";")
+.map((query) => query.trim())
+.filter((query) => query);
+
+
 const queries = sqlTables
   .split(";")
   .map((query) => query.trim())
@@ -51,14 +57,17 @@ conexion.connect((error) => {
       console.log(`Consulta ${index + 1} ejecutada exitosamente:`, results);
     });
   });
-
-  conexion.query(sqlUsuarios, (err, results) => {
-    if (err) {
-      console.error("Error al ejecutar el script SQL:", err);
-    } else {
-      console.log("Script SQL ejecutado con éxito:", results);
-    }
+  queries1.forEach((query, index) => {
+    conexion.query(query, (err, results) => {
+      if (err) {
+        console.error(`Error ejecutando la consulta ${index + 1}:`, err.stack);
+        return;
+      }
+      console.log(`Consulta ${index + 1} ejecutada exitosamente:`, results);
+    });
   });
+
+
 
   // Inicia el servidor después de ejecutar el script SQL
   app.listen(PUERTO, () => {
