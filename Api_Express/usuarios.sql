@@ -1,14 +1,6 @@
 
 
-CREATE TABLE usuarios (
-    id_usuario INT NOT NULL AUTO_INCREMENT,
-    nombre VARCHAR(50),
-    apellidos VARCHAR(50),
-    email VARCHAR(50),
-    password VARCHAR(50),
-    PRIMARY KEY (id_usuario)
-);
-
+-- Insertar datos en la tabla 'usuarios'
 INSERT INTO usuarios (nombre, apellidos, email, password) VALUES
 ('Gregor', 'Ashment', 'gashment0@loc.gov', 'J9vP7wR1'),
 ('pepito', 'perez perez', 'pepito@per.mail', 'T5qM2zS3'),
@@ -39,7 +31,7 @@ INSERT INTO usuarios (nombre, apellidos, email, password) VALUES
 ('Malvin', 'Copnar', 'mcopnarp@is.gd', 'Q8rK5wJ3'),
 ('Nancy', 'Fagge', 'nfaggeq@wikipedia.org', 'P7xL2vF9'),
 ('Brier', 'Moisey', 'bmoiseyr@istockphoto.com', 'R6kN4wQ2'),
-('Alexei', 'M\'\'Quhan', 'amquhans@stanford.edu', 'T9vM2xL5'),
+('Alexei', 'M''Quhan', 'amquhans@stanford.edu', 'T9vM2xL5'),
 ('Orlando', 'Klimpke', 'oklimpket@bravesites.com', 'L3rP8yN6'),
 ('Tammi', 'Androck', 'tandrocku@wikispaces.com', 'F4wN7rK2'),
 ('Torey', 'Trim', 'ttrimv@tinyurl.com', 'Q5pM9xL1'),
@@ -61,3 +53,27 @@ INSERT INTO usuarios (nombre, apellidos, email, password) VALUES
 ('Base', 'Seagrove', 'bseagrove1b@timesonline.co.uk', 'F5wN6xL2'),
 ('Billie', 'Manktelow', 'bmanktelow1c@geocities.jp', 'R9pM4vL7'),
 ('Claybourne', 'Kolczynski', 'ckolczynski1d@clickbank.net', 'N2xL8pF5');
+
+
+
+INSERT INTO productos (nombre, descripcion, referencia, precio) VALUES
+('Teclado Mecánico', 'Teclado mecánico con retroiluminación RGB', 'TK-001', 89.99),
+('Ratón Gaming', 'Ratón ergonómico con 6 botones programables', 'RT-002', 49.99),
+('Pantalla 24"', 'Pantalla LCD de 24 pulgadas Full HD', 'PT-003', 179.99),
+('Ordenador Portátil', 'Ordenador portátil con procesador i7 y 16GB de RAM', 'LP-004', 1299.99),
+('Auriculares Bluetooth', 'Auriculares inalámbricos con cancelación de ruido', 'AU-005', 119.99),
+('Teclado USB', 'Teclado estándar con cable USB', 'TK-006', 29.99),
+('Ratón Óptico', 'Ratón óptico con rueda de desplazamiento', 'RT-007', 19.99),
+('Pantalla 27"', 'Pantalla LCD de 27 pulgadas 4K', 'PT-008', 299.99),
+('Ordenador de Sobremesa', 'Ordenador de sobremesa con procesador Ryzen 5 y 8GB de RAM', 'DS-009', 799.99),
+('Webcam HD', 'Cámara web HD con micrófono integrado', 'WB-010', 59.99),
+('Teclado Inalámbrico', 'Teclado inalámbrico compacto con batería recargable', 'TK-011', 69.99),
+('Ratón Ergónomico', 'Ratón ergonómico con ajuste de DPI', 'RT-012', 39.99),
+('Pantalla Curva 34"', 'Pantalla curva ultrapanorámica de 34 pulgadas', 'PT-013', 499.99),
+('Ordenador Gaming', 'Ordenador de alto rendimiento para gaming', 'OG-014', 1999.99),
+('Monitor 4K', 'Monitor 4K de 32 pulgadas con alto rango dinámico', 'MN-015', 399.99),
+('Teclado Retroiluminado', 'Teclado mecánico con retroiluminación personalizable', 'TK-016', 109.99),
+('Ratón para Diseño', 'Ratón de alta precisión para diseño gráfico', 'RT-017', 89.99),
+('Pantalla Táctil 21"', 'Pantalla táctil de 21 pulgadas para uso profesional', 'PT-018', 249.99),
+('Ordenador Todo en Uno', 'Ordenador todo en uno con pantalla de 27 pulgadas', 'AO-019', 1499.99),
+('Docking Station', 'Estación de acoplamiento para laptop con múltiples puertos', 'DS-020', 89.99);

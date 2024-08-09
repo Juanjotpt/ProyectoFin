@@ -7,11 +7,17 @@ const cors = require("cors");
 const app = express();
 const PUERTO = 3000;
 
+const sqlTables = fs.readFileSync("tables.sql", "utf8");
+
 // Leer el contenido del archivo SQL
-const sqlUsuarios = fs.readFileSync('usuarios.sql', 'utf8');
+const sqlUsuarios = fs.readFileSync("usuarios.sql", "utf8");
+const queries = sqlTables
+  .split(";")
+  .map((query) => query.trim())
+  .filter((query) => query);
 
 // Middleware para configurar CORS
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "*");
   next();
@@ -31,10 +37,20 @@ const conexion = mysql.createConnection({
 // Conexión a la base de datos y ejecución del script SQL
 conexion.connect((error) => {
   if (error) {
-    console.error('Error connecting to the database:', error.stack);
+    console.error("Error connecting to the database:", error.stack);
     return;
   }
   console.log("Exito en la conexión");
+  // Ejecutar cada sentencia individualmente
+  queries.forEach((query, index) => {
+    conexion.query(query, (err, results) => {
+      if (err) {
+        console.error(`Error ejecutando la consulta ${index + 1}:`, err.stack);
+        return;
+      }
+      console.log(`Consulta ${index + 1} ejecutada exitosamente:`, results);
+    });
+  });
 
   conexion.query(sqlUsuarios, (err, results) => {
     if (err) {
@@ -42,15 +58,13 @@ conexion.connect((error) => {
     } else {
       console.log("Script SQL ejecutado con éxito:", results);
     }
-    conexion.end();
   });
 
-    // Inicia el servidor después de ejecutar el script SQL
-    app.listen(PUERTO, () => {
-      console.log(`Servidor OK en ${PUERTO}`);
-    });
+  // Inicia el servidor después de ejecutar el script SQL
+  app.listen(PUERTO, () => {
+    console.log(`Servidor OK en ${PUERTO}`);
   });
-
+});
 
 // Ruta raíz que responde con un archivo HTML
 app.get("/", (req, res) => {
