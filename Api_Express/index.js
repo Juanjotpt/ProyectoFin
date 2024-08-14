@@ -154,3 +154,77 @@ app.delete("/usuarios/borrar/:id", (req, res) => {
     }
   });
 });
+
+// Ruta para obtener todos los productos
+app.get("/productos", (req, res) => {
+  const query = "SELECT * FROM productos";
+  conexion.query(query, (error, resultado) => {
+    if (error) {
+      console.log(error.message);
+      res.status(500).send("Error al obtener los productos");
+    } else {
+      res.json(resultado.length > 0 ? resultado : "No hay registros");
+    }
+  });
+});
+
+// Ruta para obtener un producto por su ID
+app.get("/productos/:id", (req, res) => {
+  const { id } = req.params;
+  const query = `SELECT * FROM productos WHERE id_producto=${id}`;
+  conexion.query(query, (error, resultado) => {
+    if (error) {
+      console.error(error.message);
+      res.status(500).send("Error al obtener el producto");
+    } else {
+      res.json(resultado.length > 0 ? resultado : "No hay registro con ese id");
+    }
+  });
+});
+
+// Ruta para agregar un nuevo producto
+app.post("/productos/agregar", (req, res) => {
+  const producto = {
+    nombre: req.body.nombre,
+    precio: req.body.precio,
+    descripcion: req.body.descripcion,
+  };
+  const query = `INSERT INTO productos SET ?`;
+  conexion.query(query, producto, (error, resultado) => {
+    if (error) {
+      console.error(error.message);
+      res.status(500).send("Error al insertar el producto");
+    } else {
+      res.json(`Se insertó correctamente el producto`);
+    }
+  });
+});
+
+// Ruta para actualizar un producto por su ID
+app.put("/productos/actualizar/:id", (req, res) => {
+  const { id } = req.params;
+  const { nombre, precio, descripcion } = req.body;
+  const query = `UPDATE productos SET nombre='${nombre}', precio=${precio}, descripcion='${descripcion}' WHERE id_producto='${id}'`;
+  conexion.query(query, (error, resultado) => {
+    if (error) {
+      console.error(error.message);
+      res.status(500).send("Error al actualizar el producto");
+    } else {
+      res.json(`Se actualizó el producto`);
+    }
+  });
+});
+
+// Ruta para eliminar un producto por su ID
+app.delete("/productos/borrar/:id", (req, res) => {
+  const { id } = req.params;
+  const query = `DELETE FROM productos WHERE id_producto=${id}`;
+  conexion.query(query, (error, resultado) => {
+    if (error) {
+      console.error(error.message);
+      res.status(500).send("Error al eliminar el producto");
+    } else {
+      res.json("Se eliminó el producto");
+    }
+  });
+});
