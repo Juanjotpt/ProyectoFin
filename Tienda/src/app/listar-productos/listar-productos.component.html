@@ -1,0 +1,40 @@
+<div class="container">
+    <a class="btn btn-primary" routerLink="/productos/agregar">Agregar Producto</a>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="col-sm-2">ID</th>
+        <th class="col-sm-3">Nombre</th>
+        <th class="col-sm-3">Descripción</th>
+        <th class="col-sm-2">Precio</th>
+        <th class="col-sm-2">Editar</th>
+        <th class="col-sm-2">Borrar</th>
+      </tr>
+    </thead>
+    <tbody>
+        @for(producto of productos; track producto.id_producto){
+            <tr>
+              <td class="col-sm-2">{{ producto.id_producto }}</td>
+              <td class="col-sm-2">{{ producto.nombre_producto }}</td>
+              <td class="col-sm-2">{{ producto.descripcion }}</td>
+              <td class="col-sm-2">{{ producto.precio_unitario }}</td>
+              <td class="col-sm-2">
+                <fieldset class="form-group">
+          <a
+            class="btn btn-primary"
+            routerLink="/productos/editar/{{producto.id_producto}}"
+          >Editar</a>
+          </fieldset>
+        </td>
+        <td class="col-sm-2">
+          <button
+            class="btn btn-danger"
+            (click)="borrarProducto(producto.id_producto)"
+          >Borrar</button>
+        </td>
+      </tr>
+    }
+    </tbody>
+  </table>
+  

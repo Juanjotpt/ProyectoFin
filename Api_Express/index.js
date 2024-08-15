@@ -148,7 +148,7 @@ app.delete("/usuarios/borrar/:id", (req, res) => {
   conexion.query(query, (error, resultado) => {
     if (error) {
       console.error(error.message);
-      res.status(500).send("Error al eliminar el usuario");
+      res.status(500).send("Error al eliminar el usuario, el usuario está referenciado en otra tabla");
     } else {
       res.json("Se eliminó el usuario");
     }

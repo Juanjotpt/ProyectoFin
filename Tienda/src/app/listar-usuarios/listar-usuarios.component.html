@@ -40,3 +40,21 @@
     }
   </tbody>
 </table>
+
+<div class="modal" tabindex="-1"role="dialog" [class.show]="mostrarModal" [ngStyle]="{'display': mostrarModal ? 'block' : 'none'}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Error al eliminar el usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModal()" ></button>
+      </div>
+      <div class="modal-body">
+        <p>No se puede eliminar el usuario porque está referenciado en otra tabla </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cerrar</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
