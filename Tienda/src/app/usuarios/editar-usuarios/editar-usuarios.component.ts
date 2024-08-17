@@ -1,21 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { UsuarioModel } from '../compartido/usuario.model';
-import { UsuarioService } from '../compartido/usuario.service';
+import { UsuarioModel } from '../../compartido/usuario/usuario.model';
+import { UsuarioService } from '../../compartido/usuario/usuario.service';
 
 @Component({
   selector: 'app-editar-usuarios',
   standalone: true,
   imports: [CommonModule, RouterOutlet, ReactiveFormsModule],
   templateUrl: './editar-usuarios.component.html',
-  styleUrls: ['./editar-usuarios.component.css']
+  styleUrls: ['./editar-usuarios.component.css'],
 })
 export class EditarUsuariosComponent implements OnInit {
-
   id: number = 0;
-  usuario = new UsuarioModel(0, "", "", "", "");
+  usuario = new UsuarioModel(0, '', '', '', '');
 
   formularioUsuario = new FormGroup({
     nombre: new FormControl('', Validators.required),
@@ -40,12 +44,14 @@ export class EditarUsuariosComponent implements OnInit {
       );
 
       if (this.usuario.id_usuario) {
-        this.usuarioService.actualizarUsuario(this.usuario).subscribe(result => {
-          alert(result);
-          this.router.navigate(['/usuarios']);
-        });
+        this.usuarioService
+          .actualizarUsuario(this.usuario)
+          .subscribe((result) => {
+            alert(result);
+            this.router.navigate(['/usuarios']);
+          });
       } else {
-        this.usuarioService.agregarUsuario(this.usuario).subscribe(result => {
+        this.usuarioService.agregarUsuario(this.usuario).subscribe((result) => {
           alert(result);
           this.router.navigate(['/usuarios']);
         });
@@ -58,7 +64,7 @@ export class EditarUsuariosComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
     if (this.id) {
-      this.usuarioService.obtenerUsuarioId(this.id).subscribe(result => {
+      this.usuarioService.obtenerUsuarioId(this.id).subscribe((result) => {
         this.usuario = result[0];
         this.formularioUsuario.patchValue(this.usuario);
       });

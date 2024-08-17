@@ -12,10 +12,10 @@ const sqlTables = fs.readFileSync("tables.sql", "utf8");
 // Leer el contenido del archivo SQL
 const sqlUsuarios = fs.readFileSync("usuarios.sql", "utf8");
 
-const queries1 = sqlUsuarios .split(";")
-.map((query) => query.trim())
-.filter((query) => query);
-
+const queries1 = sqlUsuarios
+  .split(";")
+  .map((query) => query.trim())
+  .filter((query) => query);
 
 const queries = sqlTables
   .split(";")
@@ -66,8 +66,6 @@ conexion.connect((error) => {
       console.log(`Consulta ${index + 1} ejecutada exitosamente:`, results);
     });
   });
-
-
 
   // Inicia el servidor después de ejecutar el script SQL
   app.listen(PUERTO, () => {
@@ -148,7 +146,11 @@ app.delete("/usuarios/borrar/:id", (req, res) => {
   conexion.query(query, (error, resultado) => {
     if (error) {
       console.error(error.message);
-      res.status(500).send("Error al eliminar el usuario, el usuario está referenciado en otra tabla");
+      res
+        .status(500)
+        .send(
+          "Error al eliminar el usuario, el usuario está referenciado en otra tabla"
+        );
     } else {
       res.json("Se eliminó el usuario");
     }
@@ -225,6 +227,88 @@ app.delete("/productos/borrar/:id", (req, res) => {
       res.status(500).send("Error al eliminar el producto");
     } else {
       res.json("Se eliminó el producto");
+    }
+  });
+});
+
+// Ruta para obtener todos los carritos
+app.get("/carritos", (req, res) => {
+  const query = `
+    SELECT 
+      carrito.id_carrito, 
+      carrito.id_usuario, 
+      usuarios.nombre AS nombre_usuario
+    FROM 
+      carrito
+    JOIN 
+      usuarios ON carrito.id_usuario = usuarios.id_usuario
+  `;
+
+  conexion.query(query, (error, resultado) => {
+    if (error) {
+      console.log(error.message);
+      res.status(500).send("Error al obtener los carritos");
+    } else {
+      res.json(resultado.length > 0 ? resultado : "No hay registros");
+    }
+  });
+});
+
+// Ruta para obtener un carrito por su ID
+app.get("/carritos/:id", (req, res) => {
+  const { id } = req.params;
+  const query = `SELECT * FROM carrito WHERE id_carrito=${id}`;
+  conexion.query(query, (error, resultado) => {
+    if (error) {
+      console.error(error.message);
+      res.status(500).send("Error al obtener el carrito");
+    } else {
+      res.json(resultado.length > 0 ? resultado : "No hay registro con ese id");
+    }
+  });
+});
+
+// Ruta para agregar un nuevo carrito
+app.post("/carritos/agregar", (req, res) => {
+  const carrito = {
+    id_usuario: req.body.id_usuario,
+  };
+  const query = `INSERT INTO carrito SET ?`;
+  conexion.query(query, carrito, (error, resultado) => {
+    if (error) {
+      console.error(error.message);
+      res.status(500).send("Error al insertar el carrito");
+    } else {
+      res.json(`Se insertó correctamente el carrito`);
+    }
+  });
+});
+
+// Ruta para actualizar un carrito por su ID
+app.put("/carritos/actualizar/:id", (req, res) => {
+  const { id } = req.params;
+  const { id_usuario } = req.body;
+  const query = `UPDATE carrito SET id_usuario='${id_usuario}' WHERE id_carrito=${id}`;
+  conexion.query(query, (error, resultado) => {
+    if (error) {
+      console.error(error.message);
+      res.status(500).send("Error al actualizar el carrito");
+    } else {
+      res.json(`Se actualizó el carrito`);
+    }
+  });
+});
+
+// Ruta para eliminar un carrito por su ID
+app.delete("/carritos/borrar/:id", (req, res) => {
+  const { id } = req.params;
+  const query = `DELETE FROM carrito WHERE id_carrito=${id}`;
+  conexion.query(query, (error, resultado) => {
+    if (error) {
+      console.error(error.message);
+      res.status(500).send("Error al eliminar el carrito");
+    } else {
+      res.json("Se eliminó el carrito");
     }
   });
 });
