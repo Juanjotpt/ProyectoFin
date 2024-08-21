@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
-import { CarritoModel } from '../compartido/carrito/carrito.model';
-import { CarritoService } from '../compartido/carrito/carrito.service';
+import { CarritoModel } from '../../compartido/carrito/carrito.model';
+import { CarritoService } from '../../compartido/carrito/carrito.service';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 

@@ -1,0 +1,28 @@
+<div class="container">
+    <h1>Lista de Productos en el Carrito</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID Producto</th>
+          <th>ID Carrito</th>
+          <th>Cantidad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(productoCarrito of productosCarrito; track productoCarrito.id_productos_carrito){
+        <tr>
+          <td>{{ productoCarrito.id_producto }}</td>
+          <td>{{ productoCarrito.id_carrito }}</td>
+          <td>{{ productoCarrito.cantidad }}</td>
+          <td>
+            <button (click)="borrarProductoCarrito(productoCarrito.id_productos_carrito)" class="btn btn-danger">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+    }
+      </tbody>
+    </table>
+  </div>
+  
