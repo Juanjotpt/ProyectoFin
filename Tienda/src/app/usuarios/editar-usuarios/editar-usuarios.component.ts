@@ -19,13 +19,15 @@ import { UsuarioService } from '../../compartido/usuario/usuario.service';
 })
 export class EditarUsuariosComponent implements OnInit {
   id: number = 0;
-  usuario = new UsuarioModel(0, '', '', '', '');
+  usuario = new UsuarioModel(0, '', '', '', '','','');
 
   formularioUsuario = new FormGroup({
     nombre: new FormControl('', Validators.required),
     apellidos: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
+    direccion: new FormControl('', Validators.required),
+    dni: new FormControl('', Validators.required),
   });
 
   constructor(
@@ -40,7 +42,9 @@ export class EditarUsuariosComponent implements OnInit {
         this.formularioUsuario.get('email')?.value ?? '',
         this.formularioUsuario.get('nombre')?.value ?? '',
         this.formularioUsuario.get('apellidos')?.value ?? '',
-        this.formularioUsuario.get('password')?.value ?? ''
+        this.formularioUsuario.get('password')?.value ?? '',
+        this.formularioUsuario.get('direccion')?.value ?? '',
+        this.formularioUsuario.get('dni')?.value ?? ''
       );
 
       if (this.usuario.id_usuario) {

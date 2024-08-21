@@ -4,6 +4,8 @@ export class UsuarioModel {
     public email: string,
     public nombre: string,
     public apellidos: string,
-    public password: string
+    public password: string,
+    public direccion: string,
+    public dni: string,
   ) {}
 }

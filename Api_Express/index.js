@@ -112,6 +112,8 @@ app.post("/usuarios/agregar", (req, res) => {
     apellidos: req.body.apellidos,
     email: req.body.email,
     password: req.body.password,
+    direccion: req.body.direccion,
+    dni: req.body.dni,
   };
   const query = `INSERT INTO usuarios SET ?`;
   conexion.query(query, usuario, (error, resultado) => {
@@ -127,9 +129,14 @@ app.post("/usuarios/agregar", (req, res) => {
 // Ruta para actualizar un usuario por su ID
 app.put("/usuarios/actualizar/:id", (req, res) => {
   const { id } = req.params;
-  const { nombre, email, apellidos, password } = req.body;
-  const query = `UPDATE usuarios SET nombre='${nombre}', email='${email}', apellidos='${apellidos}', password='${password}' WHERE id_usuario='${id}'`;
-  conexion.query(query, (error, resultado) => {
+  const { nombre, email, apellidos, password, direccion, dni } = req.body;
+  const query = `
+    UPDATE usuarios 
+    SET nombre = ?, email = ?, apellidos = ?, password = ?, direccion = ?, dni = ? 
+    WHERE id_usuario = ?`;
+  const values = [nombre, email, apellidos, password, direccion, dni, id];
+
+  conexion.query(query, values, (error, resultado) => {
     if (error) {
       console.error(error.message);
       res.status(500).send("Error al actualizar el usuario");
@@ -156,7 +163,6 @@ app.delete("/usuarios/borrar/:id", (req, res) => {
     }
   });
 });
-
 // Ruta para obtener todos los productos
 app.get("/productos", (req, res) => {
   const query = "SELECT * FROM productos";
@@ -184,20 +190,25 @@ app.get("/productos/:id", (req, res) => {
   });
 });
 
+
+
 // Ruta para agregar un nuevo producto
 app.post("/productos/agregar", (req, res) => {
   const producto = {
-    nombre: req.body.nombre,
-    precio: req.body.precio,
+    nombre_producto: req.body.nombre_producto,
     descripcion: req.body.descripcion,
+    precio_unitario: req.body.precio_unitario,
+    stock: req.body.stock,
+    categoria: req.body.categoria,
   };
-  const query = `INSERT INTO productos SET ?`;
+  // Utilizar consultas parametrizadas para evitar inyecciones SQL
+  const query = "INSERT INTO productos SET ?";
   conexion.query(query, producto, (error, resultado) => {
     if (error) {
       console.error(error.message);
       res.status(500).send("Error al insertar el producto");
     } else {
-      res.json(`Se insertó correctamente el producto`);
+      res.json("Se insertó correctamente el producto");
     }
   });
 });
@@ -205,31 +216,39 @@ app.post("/productos/agregar", (req, res) => {
 // Ruta para actualizar un producto por su ID
 app.put("/productos/actualizar/:id", (req, res) => {
   const { id } = req.params;
-  const { nombre, precio, descripcion } = req.body;
-  const query = `UPDATE productos SET nombre='${nombre}', precio=${precio}, descripcion='${descripcion}' WHERE id_producto='${id}'`;
+  const { nombre_producto, descripcion, precio_unitario, stock, categoria } = req.body;
+
+  // Nota: Se asume que los valores en req.body están validados previamente en el cliente o en algún middleware
+  
+  const query = `UPDATE productos SET nombre_producto='${nombre_producto}', descripcion='${descripcion}', precio_unitario='${precio_unitario}', stock='${stock}', categoria='${categoria}' WHERE id_producto='${id}'`;
+
   conexion.query(query, (error, resultado) => {
     if (error) {
       console.error(error.message);
       res.status(500).send("Error al actualizar el producto");
     } else {
-      res.json(`Se actualizó el producto`);
+      res.json("Se actualizó el producto");
     }
   });
 });
 
+
 // Ruta para eliminar un producto por su ID
 app.delete("/productos/borrar/:id", (req, res) => {
   const { id } = req.params;
-  const query = `DELETE FROM productos WHERE id_producto=${id}`;
-  conexion.query(query, (error, resultado) => {
+  // Utilizar consultas parametrizadas para evitar inyecciones SQL
+  const query = "DELETE FROM productos WHERE id_producto = ?";
+  conexion.query(query, [id], (error, resultado) => {
     if (error) {
       console.error(error.message);
-      res.status(500).send("Error al eliminar el producto");
+      res.status(500).send("Error al eliminar el producto, el producto está referenciado en otra tabla");
     } else {
       res.json("Se eliminó el producto");
     }
   });
 });
+
+
 
 // Ruta para obtener todos los carritos
 app.get("/carritos", (req, res) => {

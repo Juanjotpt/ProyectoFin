@@ -7,8 +7,8 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { ProductoModel } from '../../compartido/producto/producto.model'; // Asegúrate de que esta ruta sea correcta
-import { ProductoService } from '../../compartido/producto/producto.service'; // Asegúrate de que esta ruta sea correcta
+import { ProductoModel } from '../../compartido/producto/producto.model';
+import { ProductoService } from '../../compartido/producto/producto.service';
 
 @Component({
   selector: 'app-editar-productos',
@@ -19,15 +19,17 @@ import { ProductoService } from '../../compartido/producto/producto.service'; //
 })
 export class EditarProductosComponent implements OnInit {
   id: number = 0;
-  producto = new ProductoModel(0,'',0, '', 0, ''); // Asegúrate de que el modelo se ajuste a tus necesidades
+  producto = new ProductoModel(0, '', 0, '', 0, '');
 
   formularioProducto = new FormGroup({
-    nombre: new FormControl('', Validators.required),
-    precio_unitario: new FormControl('', [Validators.required, Validators.minLength(0)]),
+    nombre_producto: new FormControl('', Validators.required),
+    precio_unitario: new FormControl(0, [
+      Validators.required,
+      Validators.min(0),
+    ]),
     descripcion: new FormControl('', Validators.required),
-    stock: new FormControl('', [Validators.required, Validators.minLength(0)]),
+    stock: new FormControl(0, [Validators.required, Validators.min(0)]),
     categoria: new FormControl('', Validators.required),
-
   });
 
   constructor(
@@ -36,47 +38,75 @@ export class EditarProductosComponent implements OnInit {
     private router: Router
   ) {}
 
+  ngOnInit() {
+    this.id = Number(this.route.snapshot.params['id']);
+    if (this.id) {
+      this.productoService.obtenerProductoId(this.id).subscribe({
+        next: (result) => {
+          if (Array.isArray(result) && result.length > 0) {
+            this.producto = result[0];
+          } else {
+            this.producto = result;
+          }
+
+          this.formularioProducto.patchValue({
+            nombre_producto: this.producto.nombre_producto,
+            precio_unitario: this.producto.precio_unitario,
+            descripcion: this.producto.descripcion,
+            stock: this.producto.stock,
+            categoria: this.producto.categoria,
+          });
+        },
+        error: (error) => {
+          console.error('Error al obtener el producto:', error);
+          alert(
+            'No se pudo obtener el producto. Inténtalo de nuevo más tarde.'
+          );
+        },
+      });
+    }
+  }
+
   submit() {
     if (this.formularioProducto.valid) {
       this.producto = new ProductoModel(
-        this.producto.id_producto, 
-        this.formularioProducto.get('nombre')?.value ?? '',
+        this.id, 
+        this.formularioProducto.get('nombre_producto')?.value ?? '',
         Number(this.formularioProducto.get('precio_unitario')?.value ?? 0),
         this.formularioProducto.get('descripcion')?.value ?? '',
         Number(this.formularioProducto.get('stock')?.value ?? 0),
-        this.formularioProducto.get('categoria')?.value ?? '',
+        this.formularioProducto.get('categoria')?.value ?? ''
       );
-  
-      if (this.producto.id_producto) {
-        this.productoService
-          .actualizarProducto(this.producto)
-          .subscribe((result) => {
+
+      if (this.id) {
+        this.productoService.actualizarProducto(this.producto).subscribe({
+          next: (result) => {
             alert(result);
             this.router.navigate(['/productos']);
-          });
+          },
+          error: (error) => {
+            console.error('Error al actualizar el producto:', error);
+            alert(
+              'No se pudo actualizar el producto. Inténtalo de nuevo más tarde.'
+            );
+          },
+        });
       } else {
-        this.productoService.agregarProducto(this.producto).subscribe((result) => {
-          alert(result);
-          this.router.navigate(['/productos']);
+        this.productoService.agregarProducto(this.producto).subscribe({
+          next: (result) => {
+            alert(result);
+            this.router.navigate(['/productos']);
+          },
+          error: (error) => {
+            console.error('Error al agregar el producto:', error);
+            alert(
+              'No se pudo agregar el producto. Inténtalo de nuevo más tarde.'
+            );
+          },
         });
       }
     } else {
       alert('Por favor, completa todos los campos requeridos.');
-    }
-  }
-  ngOnInit() {
-    this.id = this.route.snapshot.params['id'];
-    if (this.id) {
-      this.productoService.obtenerProductoId(this.id).subscribe((result: ProductoModel) => {
-        this.producto = result;
-        this.formularioProducto.patchValue({
-          nombre: this.producto.nombre_producto,
-          precio_unitario: this.producto.precio_unitario,
-          descripcion: this.producto.descripcion,
-          stock: this.producto.stock,
-          categoria: this.producto.categoria
-        });
-      });
     }
   }
 }

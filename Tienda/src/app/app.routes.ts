@@ -22,15 +22,15 @@ export const routes: Routes = [
   },
   {
     path: 'productos',
-    component: ListarProductosComponent, // Ruta para listar productos
+    component: ListarProductosComponent, 
   },
   {
     path: 'productos/editar/:id',
-    component: EditarProductosComponent, // Ruta para editar un producto existente
+    component: EditarProductosComponent, 
   },
   {
     path: 'productos/agregar',
-    component: EditarProductosComponent, // Ruta para agregar un nuevo producto
+    component: EditarProductosComponent, 
   },
   {
     path: 'carritos',
