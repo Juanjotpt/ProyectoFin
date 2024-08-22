@@ -1,0 +1,29 @@
+<div class="container">
+    <h2>Lista de Ventas</h2>
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID Venta</th>
+          <th>ID Usuario</th>
+          <th>Total</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+    
+            @for(venta of ventas; track venta.id_venta){
+         <tr>
+          <td>{{ venta.id_venta }}</td>
+          <td>{{ venta.nombre_usuario }}</td>
+          <td>{{ venta.total | currency }}</td>
+          <td>
+            <button class="btn btn-danger" (click)="borrarVenta(venta.id_venta)">
+              Eliminar
+            </button>
+          </td>
+       
+        </tr>
+    }
+      </tbody>
+    </table>

@@ -47,6 +47,7 @@ conexion.connect((error) => {
     return;
   }
   console.log("Exito en la conexión");
+
   // Ejecutar cada sentencia individualmente
   queries.forEach((query, index) => {
     conexion.query(query, (err, results) => {
@@ -409,6 +410,182 @@ app.delete("/productos_carrito/borrar/:id", (req, res) => {
         .send("Error al eliminar el producto del carrito");
     } else {
       res.json("Se eliminó el producto del carrito");
+    }
+  });
+});
+
+// Ruta para obtener todos los roles
+app.get("/roles", (req, res) => {
+  const query = `
+    SELECT 
+      rol.id_rol, 
+      rol.id_usuario, 
+      usuarios.nombre AS nombre_usuario,
+      rol.tipo
+    FROM 
+      rol
+    JOIN 
+      usuarios ON rol.id_usuario = usuarios.id_usuario
+  `;
+
+  conexion.query(query, (error, resultado) => {
+    if (error) {
+      console.log(error.message);
+      res.status(500).send("Error al obtener los roles");
+    } else {
+      res.json(resultado.length > 0 ? resultado : "No hay registros");
+    }
+  });
+});
+
+// Ruta para obtener un rol por su ID
+app.get("/roles/:id", (req, res) => {
+  const { id } = req.params;
+  const query = `
+    SELECT 
+      rol.id_rol, 
+      rol.id_usuario, 
+      usuarios.nombre AS nombre_usuario,
+      rol.tipo
+    FROM 
+      rol
+    JOIN 
+      usuarios ON rol.id_usuario = usuarios.id_usuario
+    WHERE 
+      rol.id_rol=${id}
+  `;
+  conexion.query(query, (error, resultado) => {
+    if (error) {
+      console.error(error.message);
+      res.status(500).send("Error al obtener el rol");
+    } else {
+      res.json(resultado.length > 0 ? resultado : "No hay registro con ese id");
+    }
+  });
+});
+
+// Ruta para agregar un nuevo rol
+app.post("/roles/agregar", (req, res) => {
+  const rol = {
+    id_usuario: req.body.id_usuario,
+    tipo: req.body.tipo,
+  };
+  const query = `INSERT INTO rol SET ?`;
+  conexion.query(query, rol, (error, resultado) => {
+    if (error) {
+      console.error(error.message);
+      res.status(500).send("Error al insertar el rol");
+    } else {
+      res.json(`Se insertó correctamente el rol`);
+    }
+  });
+});
+
+// Ruta para actualizar un rol por su ID
+app.put("/roles/actualizar/:id", (req, res) => {
+  const { id } = req.params;
+  const { id_usuario, tipo } = req.body;
+  const query = `
+    UPDATE rol 
+    SET id_usuario='${id_usuario}', tipo='${tipo}' 
+    WHERE id_rol=${id}
+  `;
+  conexion.query(query, (error, resultado) => {
+    if (error) {
+      console.error(error.message);
+      res.status(500).send("Error al actualizar el rol");
+    } else {
+      res.json(`Se actualizó el rol`);
+    }
+  });
+});
+
+// Ruta para eliminar un rol por su ID
+app.delete("/roles/borrar/:id", (req, res) => {
+  const { id } = req.params;
+  const query = `DELETE FROM rol WHERE id_rol=${id}`;
+  conexion.query(query, (error, resultado) => {
+    if (error) {
+      console.error(error.message);
+      res.status(500).send("Error al eliminar el rol");
+    } else {
+      res.json("Se eliminó el rol");
+    }
+  });
+});
+
+app.get("/ventas", (req, res) => {
+  const query = `
+    SELECT 
+      ventas.id_venta, 
+      ventas.id_usuario, 
+      usuarios.nombre AS nombre_usuario,
+      ventas.total
+    FROM 
+      ventas
+    JOIN 
+      usuarios ON ventas.id_usuario = usuarios.id_usuario
+  `;
+
+  conexion.query(query, (error, resultado) => {
+    if (error) {
+      console.log(error.message);
+      res.status(500).send("Error al obtener las ventas");
+    } else {
+      res.json(resultado.length > 0 ? resultado : "No hay registros");
+    }
+  });
+});
+app.get("/ventas/:id", (req, res) => {
+  const { id } = req.params;
+  const query = `SELECT * FROM ventas WHERE id_venta=${id}`;
+  conexion.query(query, (error, resultado) => {
+    if (error) {
+      console.error(error.message);
+      res.status(500).send("Error al obtener la venta");
+    } else {
+      res.json(resultado.length > 0 ? resultado : "No hay registro con ese id");
+    }
+  });
+});
+
+
+app.post("/ventas/agregar", (req, res) => {
+  const { id_usuario, total } = req.body;
+  const query = `INSERT INTO ventas (id_usuario, total) VALUES (?, ?)`;
+  conexion.query(query, [id_usuario, total], (error, resultado) => {
+    if (error) {
+      console.error(error.message);
+      res.status(500).send("Error al insertar la venta");
+    } else {
+      res.json("Se insertó correctamente la venta");
+    }
+  });
+});
+
+app.put("/ventas/actualizar/:id", (req, res) => {
+  const { id } = req.params;
+  const { id_usuario, total } = req.body;
+  const query = `UPDATE ventas SET id_usuario=?, total=? WHERE id_venta=?`;
+  conexion.query(query, [id_usuario, total, id], (error, resultado) => {
+    if (error) {
+      console.error(error.message);
+      res.status(500).send("Error al actualizar la venta");
+    } else {
+      res.json("Se actualizó la venta");
+    }
+  });
+});
+
+app.delete("/ventas/borrar/:id", (req, res) => {
+  const { id } = req.params;
+  const query = `DELETE FROM ventas WHERE id_venta=${id}`;
+  conexion.query(query, (error, resultado) => {
+    if (error) {
+      console.error(error.message);
+      res.status(500).send("Error al eliminar la venta");
+    } else {
+      res.json("Se eliminó la venta");
     }
   });
 });

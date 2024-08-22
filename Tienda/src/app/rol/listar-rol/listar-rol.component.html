@@ -1,0 +1,29 @@
+<div class="container">
+    <h2>Lista de Roles</h2>
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID Rol</th>
+          <th>ID Usuario</th>
+          <th>Tipo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+    
+        @for(rol of roles; track rol.id_rol){
+            <tr>
+          <td>{{ rol.id_rol }}</td>
+          <td>{{ rol.nombre_usuario }}</td>
+          <td>{{ rol.tipo ? 'Admin' : 'Cliente' }}</td>
+          <td>
+            <button class="btn btn-danger" (click)="borrarRol(rol.id_rol)">
+              Eliminar
+            </button>
+          </td>
+        
+        </tr>
+        }
+      </tbody>
+    </table>
