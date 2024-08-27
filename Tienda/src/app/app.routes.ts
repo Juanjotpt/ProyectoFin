@@ -11,6 +11,8 @@ import { ListarRolComponent } from './rol/listar-rol/listar-rol.component';
 import { ListarVentasComponent } from './ventas/listar-ventas/listar-ventas.component';
 import { EditarVentasComponent } from './ventas/editar-ventas/editar-ventas.component';
 import { Component } from '@angular/core';
+import { ListarDetallesVentasComponent } from './detalle_venta/listar-detalle-venta/listar-detalle-venta.component';
+import { EditarDetalleVentaComponent } from './detalle_venta/editar-detalle-venta/editar-detalle-venta.component';
 
 export const routes: Routes = [
   {
@@ -76,6 +78,18 @@ export const routes: Routes = [
   {
     path: 'ventas/agregar',
     component: EditarVentasComponent,
+  },
+  {
+    path: 'detalleVenta',
+    component: ListarDetallesVentasComponent
+  },
+  {
+    path: 'detalleVenta/editar/:id',
+    component: EditarDetalleVentaComponent
+  },
+  {
+    path: 'detalleVenta/agregar',
+    component: EditarDetalleVentaComponent
   },
   {
     path: '**',

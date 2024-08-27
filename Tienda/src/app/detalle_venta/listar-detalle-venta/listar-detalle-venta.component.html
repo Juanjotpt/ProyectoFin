@@ -1,0 +1,37 @@
+
+<div class="container">
+    <h1>Lista de Detalles de Ventas</h1>
+    
+  
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID Detalle Venta</th>
+          <th>ID Venta</th>
+          <th>ID Producto</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(detalle of detallesVentas; track detalle.id_detalle_venta){
+            <tr>
+          <td>{{ detalle.id_detalle_venta }}</td>
+          <td>{{ detalle.id_venta }}</td>
+          <td>{{ detalle.nombre_producto }}</td>
+          <td>{{ detalle.cantidad }}</td>
+          <td>{{ detalle.precio }}</td>
+          <fieldset class="form-group">
+            <a
+              class="btn btn-danger"
+              (click)="borrarDetalleVenta(detalle.id_detalle_venta)"
+              >Borrar</a
+            >
+          </fieldset>
+        </tr>
+    }
+      </tbody>
+    </table>
+  
+  
