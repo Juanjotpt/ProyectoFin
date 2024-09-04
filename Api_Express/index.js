@@ -77,6 +77,7 @@ conexion.connect((error) => {
   const rolesRoutes = require("./rutas/roles");
   const ventasRoutes = require("./rutas/ventas");
   const detalleVentaRoutes= require("./rutas/detalle_venta");
+  const loginRoutes= require("./rutas/login");
   
 
   // Usar las rutas
@@ -87,6 +88,7 @@ conexion.connect((error) => {
   app.use("/roles", rolesRoutes);
   app.use("/ventas", ventasRoutes);
   app.use("/detalle_venta", detalleVentaRoutes);
+  app.use("/login", loginRoutes);
   
 
   // Inicia el servidor después de ejecutar el script SQL

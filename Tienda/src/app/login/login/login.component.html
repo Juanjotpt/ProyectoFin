@@ -1,0 +1,36 @@
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <fieldset class="form-group">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" class="form-control" formControlName="email" required>
+          <div *ngIf="loginForm.controls.email.invalid && (loginForm.controls.email.dirty || loginForm.controls.email.touched)">
+            <small *ngIf="loginForm.controls.email.errors?.required" class="text-danger">El email es requerido.</small>
+            <small *ngIf="loginForm.controls.email.errors?.email" class="text-danger">El email debe ser válido.</small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input type="password" id="password" class="form-control" formControlName="password" required>
+          <div *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)">
+            <small *ngIf="loginForm.controls.password.errors?.required" class="text-danger">La contraseña es requerida.</small>
+            <small *ngIf="loginForm.controls.password.errors?.minlength" class="text-danger">La contraseña debe tener al menos 6 caracteres.</small>
+          </div>
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <button type="button" class="btn btn-primary" >
+        Registrate
+      </button>
+    </div>
+  </div>
+</div>

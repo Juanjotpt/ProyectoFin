@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     nombre VARCHAR(50),
     apellidos VARCHAR(50),
     email VARCHAR(50),
-    password VARCHAR(50),
+    password VARCHAR(100),
     direccion VARCHAR(60),
     dni VARCHAR(9) UNIQUE,
     PRIMARY KEY (id_usuario)

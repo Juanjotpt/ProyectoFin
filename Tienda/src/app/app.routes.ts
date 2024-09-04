@@ -10,9 +10,12 @@ import { EditarRolComponent } from './rol/editar-rol/editar-rol.component';
 import { ListarRolComponent } from './rol/listar-rol/listar-rol.component';
 import { ListarVentasComponent } from './ventas/listar-ventas/listar-ventas.component';
 import { EditarVentasComponent } from './ventas/editar-ventas/editar-ventas.component';
-import { Component } from '@angular/core';
 import { ListarDetallesVentasComponent } from './detalle_venta/listar-detalle-venta/listar-detalle-venta.component';
 import { EditarDetalleVentaComponent } from './detalle_venta/editar-detalle-venta/editar-detalle-venta.component';
+import { LoginComponent } from './login/login/login.component';
+import { AdminComponent } from './admin/admin.component';
+import { RegistroComponent } from './registro/registro.component';
+import { ClientesComponent } from './clientes/clientes.component';
 
 export const routes: Routes = [
   {
@@ -90,6 +93,22 @@ export const routes: Routes = [
   {
     path: 'detalleVenta/agregar',
     component: EditarDetalleVentaComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'admin',
+    component: AdminComponent
+  },
+  {
+    path: 'registro',
+    component: RegistroComponent
+  },
+  {
+    path: 'cliente',
+    component: ClientesComponent
   },
   {
     path: '**',
