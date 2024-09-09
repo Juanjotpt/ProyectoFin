@@ -11,5 +11,5 @@ import { RouterLink } from '@angular/router';
 })
 export class AdminComponent {
 
-  
+  userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
 }

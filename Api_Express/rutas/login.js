@@ -76,8 +76,8 @@ router.post('/', (req, res) => {
       return res.status(401).send('Credenciales incorrectas');
     }
 
-    // Crear el token JWT
-    const payload = { id: usuario.id_usuario, rol_tipo: usuario.rol_tipo };
+    // Crear el token y llevarnos la información
+    const payload = { id: usuario.id_usuario, rol_tipo: usuario.rol_tipo, nombre: usuario.nombre };
     const token = jwt.sign(payload, secret_key, { expiresIn: '1h' });
 
     // Redirigir según el tipo de rol

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../compartido/login/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ import { CommonModule } from '@angular/common';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
@@ -30,14 +32,23 @@ export class LoginComponent {
 
     this.authService.login(email, password).subscribe(
       response => {
-        // Aquí configuras la ruta a la que deseas redirigir
-        const redirectRoute = response.redirectTo || '/'; 
+        const token = response.token;
+        localStorage.setItem('authToken', token);
 
+        // Decodificar el token para extraer la información del usuario
+        const decodedToken: any = jwtDecode(token);
+        localStorage.setItem('userInfo', JSON.stringify({
+          id: decodedToken.id,
+          nombre: decodedToken.nombre,
+          rol_tipo: decodedToken.rol_tipo
+        }));
+
+        // Redirigir a la ruta adecuada
+        const redirectRoute = response.redirectTo || '/';
         this.router.navigate([redirectRoute]); 
       },
       error => {
         console.error('Error en el login', error);
-      
       }
     );
   }

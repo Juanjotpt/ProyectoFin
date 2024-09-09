@@ -1,1 +1,81 @@
-<p>clientes works!</p>
+
+<!-- home.component.html -->
+<header class="bg-dark text-light py-3">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="h3">Bienvenid&#64;  a Imagine {{userInfo.nombre}}</h1>
+        <nav>
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/productos">Productos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" routerLink="/contacto">Contacto</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+  
+  <section class="jumbotron text-center bg-primary text-light py-5">
+    <div class="container">
+      <h2>Bienvenido a nuestra tienda de tecnología</h2>
+      <p>Encuentra los mejores productos tecnológicos al mejor precio</p>
+      <a routerLink="/productos" class="btn btn-light btn-lg">Ver Productos</a>
+    </div>
+  </section>
+  
+  <section id="productos" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">Nuestros Productos</h2>
+      <div class="row">
+        <!-- Categoría 1: Laptops -->
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Laptops">
+            <div class="card-body">
+              <h5 class="card-title">Laptops</h5>
+              <p class="card-text">Encuentra las mejores laptops para tus necesidades.</p>
+              <a routerLink="/productos/laptops" class="btn btn-primary">Ver Más</a>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Categoría 2: Smartphones -->
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Smartphones">
+            <div class="card-body">
+              <h5 class="card-title">Smartphones</h5>
+              <p class="card-text">Los últimos modelos de smartphones al mejor precio.</p>
+              <a routerLink="/productos/smartphones" class="btn btn-primary">Ver Más</a>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Categoría 3: Accesorios -->
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Accesorios">
+            <div class="card-body">
+              <h5 class="card-title">Accesorios</h5>
+              <p class="card-text">Todo lo que necesitas para complementar tu equipo.</p>
+              <a routerLink="/productos/accesorios" class="btn btn-primary">Ver Más</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <footer class="bg-dark text-light py-4">
+    <div class="container text-center">
+      <p>&copy; 2024 Tienda de Tecnología. Todos los derechos reservados.</p>
+      <p><a routerLink="/privacidad" class="text-light">Política de Privacidad</a> | <a routerLink="/terminos" class="text-light">Términos y Condiciones</a></p>
+    </div>
+  </footer>
+  
