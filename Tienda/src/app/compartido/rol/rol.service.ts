@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RolModel } from './rol.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,30 +13,27 @@ export class RolService {
   constructor(private http: HttpClient) {}
 
   // Método para obtener todos los roles
-  obtenerRoles() {
-    return this.http.get<RolModel[]>(this.BASE_URL + '/roles');
+  obtenerRoles(): Observable<RolModel[]> {
+    return this.http.get<RolModel[]>(`${this.BASE_URL}/roles`);
   }
 
   // Método para obtener un rol por su ID
-  obtenerRolId(id: number) {
-    return this.http.get<RolModel[]>(this.BASE_URL + `/roles/${id}`);
+  obtenerRolId(id: number): Observable<RolModel> {
+    return this.http.get<RolModel>(`${this.BASE_URL}/roles/${id}`);
   }
 
   // Método para agregar un nuevo rol
-  agregarRol(rol: RolModel) {
+  agregarRol(rol: RolModel): Observable<string> {
     return this.http.post<string>(`${this.BASE_URL}/roles/agregar`, rol);
   }
 
-  // Método para actualizar un rol existente
-  actualizarRol(rol: RolModel) {
-    return this.http.put<string>(
-      `${this.BASE_URL}/roles/actualizar/${rol.id_rol}`,
-      rol
-    );
+  // Método para borrar un rol por su ID
+  borrarRol(id: number): Observable<number> {
+    return this.http.delete<number>(`${this.BASE_URL}/roles/borrar/${id}`);
   }
 
-  // Método para borrar un rol por su ID
-  borrarRol(id: number) {
-    return this.http.delete<number>(`${this.BASE_URL}/roles/borrar/${id}`);
+  // Método para cambiar el tipo de rol (admin a cliente o viceversa)
+  cambiarEstadoRol(id: number): Observable<string> {
+    return this.http.put<string>(`${this.BASE_URL}/roles/cambiar/${id}`, {});
   }
 }

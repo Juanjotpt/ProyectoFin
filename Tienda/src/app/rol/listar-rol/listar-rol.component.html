@@ -1,4 +1,8 @@
-<div class="container">
+<div class="container"> 
+   <a routerLink="/admin" class="btn btn-primary" style="background-color: #e3f2fd; color: #0d6efd; font-weight: bold;">
+  Volver
+</a>
+  
     <h2>Lista de Roles</h2>
   
     <table class="table">
@@ -7,7 +11,9 @@
           <th>ID Rol</th>
           <th>ID Usuario</th>
           <th>Tipo</th>
-          <th>Acciones</th>
+          <th>Eliminar</th>
+          <th>Cambiar</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -22,8 +28,13 @@
               Eliminar
             </button>
           </td>
-        
+          <td>
+            <button class="btn btn-primary" (click)="cambiarRol(rol.id_rol)">
+              Cambiar
+            </button>
+          </td>
         </tr>
         }
       </tbody>
     </table>
+    

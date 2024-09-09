@@ -104,4 +104,31 @@ router.get("/", (req, res) => {
     });
   });
 
+  router.put("/cambiar/:id", (req, res) => {
+    const { id } = req.params;
+  
+    // Consulta SQL para actualizar el tipo
+    const query = `
+      UPDATE rol
+      SET tipo = CASE
+        WHEN tipo = 0 THEN 1  -- Si el tipo es 0 (admin), cambiar a 1 (cliente)
+        WHEN tipo = 1 THEN 0  -- Si el tipo es 1 (cliente), cambiar a 0 (admin)
+      END
+      WHERE id_rol = ?`;  // Usamos el id_rol para identificar el rol
+  
+    // Conexión a la base de datos y ejecución de la consulta
+    conexion.query(query, [id], (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: 'Error al cambiar el tipo de rol' });
+      }
+  
+      // Comprobamos si se ha actualizado algún registro
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ message: 'Rol no encontrado' });
+      }
+  
+      res.status(200).json({ message: 'Tipo de rol cambiado exitosamente' });
+    });
+  });
+
   module.exports = router;
