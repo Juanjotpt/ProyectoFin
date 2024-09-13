@@ -1,70 +1,59 @@
 
-<!-- home.component.html -->
-<header class="bg-dark text-light py-3">
-    <div class="container">
-      <div class="d-flex justify-content-between align-items-center">
-        <h1 class="h3">Bienvenid&#64;  a Imagine {{userInfo.nombre}}</h1>
-        <nav>
-          <ul class="nav">
-            <li class="nav-item">
-              <a class="nav-link text-light" routerLink="/">Inicio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light" routerLink="/productos">Productos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light" routerLink="/contacto">Contacto</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+<header class="head text-light py-3">
+  <div class="container d-flex align-items-center ">
+    <img src="logo/TecnoLab.png" alt="Tecnolab Logo" class="logo">
+    <h1 class="h1 m-0">Tecnolab</h1>
+    
+  </div>
+
+</header>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/login">Login</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav me-auto"> <!-- Usa 'me-auto' para empujar el ítem del carrito a la derecha -->
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/registro">Registro</a>
+        </li>
+      
+      </ul>
+      <a class="nav-link d-flex align-items-center ms-auto" routerLink="/carrito"> <!-- Añadido 'ms-auto' para empujar el carrito -->
+        Carrito
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart ms-2" viewBox="0 0 16 16">
+          <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+        </svg>
+      </a>
     </div>
-  </header>
-  
-  <section class="jumbotron text-center bg-primary text-light py-5">
+  </div>
+</nav>
+  <section class="jumbotron text-center bg-primary text-light py-3">
     <div class="container">
-      <h2>Bienvenido a nuestra tienda de tecnología</h2>
+      <h2>Bienvenido a nuestra tienda de tecnología {{userInfo.nombre}}</h2>
       <p>Encuentra los mejores productos tecnológicos al mejor precio</p>
-      <a routerLink="/productos" class="btn btn-light btn-lg">Ver Productos</a>
     </div>
   </section>
   
-  <section id="productos" class="py-5">
-    <div class="container">
+  <section id="productos" class="text-center text-light py-3">
+    <div class="container-fluid">
       <h2 class="text-center mb-4">Nuestros Productos</h2>
       <div class="row">
-        <!-- Categoría 1: Laptops -->
-        <div class="col-md-4 mb-4">
+        <div *ngFor="let producto of productos" class="col-md-4 mb-4">
           <div class="card">
-            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Laptops">
+            <img   [src]="'imagenes/' + producto.imagen" 
+            [srcset]="'imagenes/' + producto.imagen + ' 400w, ' + 'imagenes/' + producto.imagen+ ' 800w, ' + 'imagenes/' + producto.imagen + ' 1200w'"
+            sizes="(max-width: 600px) 400px, (max-width: 1200px) 800px, 1200px"
+            class="card-img-top"
+            alt="Producto">
             <div class="card-body">
-              <h5 class="card-title">Laptops</h5>
-              <p class="card-text">Encuentra las mejores laptops para tus necesidades.</p>
-              <a routerLink="/productos/laptops" class="btn btn-primary">Ver Más</a>
-            </div>
-          </div>
-        </div>
-  
-        <!-- Categoría 2: Smartphones -->
-        <div class="col-md-4 mb-4">
-          <div class="card">
-            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Smartphones">
-            <div class="card-body">
-              <h5 class="card-title">Smartphones</h5>
-              <p class="card-text">Los últimos modelos de smartphones al mejor precio.</p>
-              <a routerLink="/productos/smartphones" class="btn btn-primary">Ver Más</a>
-            </div>
-          </div>
-        </div>
-  
-        <!-- Categoría 3: Accesorios -->
-        <div class="col-md-4 mb-4">
-          <div class="card">
-            <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Accesorios">
-            <div class="card-body">
-              <h5 class="card-title">Accesorios</h5>
-              <p class="card-text">Todo lo que necesitas para complementar tu equipo.</p>
-              <a routerLink="/productos/accesorios" class="btn btn-primary">Ver Más</a>
+              <h5 class="card-title">{{producto.nombre_producto}}</h5>
+              <p class="card-text">{{producto.descripcion}}</p>
+              <a routerLink="/productos/{{producto.id_producto}}" class="btn btn-primary">Ver Más</a>
             </div>
           </div>
         </div>
@@ -74,7 +63,7 @@
   
   <footer class="bg-dark text-light py-4">
     <div class="container text-center">
-      <p>&copy; 2024 Tienda de Tecnología. Todos los derechos reservados.</p>
+      <p>&copy; 2024 TecnoLab. Todos los derechos reservados.</p>
       <p><a routerLink="/privacidad" class="text-light">Política de Privacidad</a> | <a routerLink="/terminos" class="text-light">Términos y Condiciones</a></p>
     </div>
   </footer>

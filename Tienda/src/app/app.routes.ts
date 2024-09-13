@@ -16,6 +16,7 @@ import { LoginComponent } from './login/login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { RegistroComponent } from './registro/registro.component';
 import { ClientesComponent } from './clientes/clientes.component';
+import { ProductsComponent } from './products/products.component';
 
 export const routes: Routes = [
   {
@@ -110,6 +111,11 @@ export const routes: Routes = [
     path: 'cliente',
     component: ClientesComponent
   },
+  {
+    path: 'productos/:id',
+    component: ProductsComponent
+  },
+ 
   {
     path: '**',
     redirectTo: '/login',

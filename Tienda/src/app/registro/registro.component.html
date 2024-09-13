@@ -1,67 +1,114 @@
-<div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <h2 class="text-center mb-4">Registro de Usuario</h2>
-        <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
-          <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" id="nombre" class="form-control" formControlName="nombre" placeholder="Ingresa tu nombre" required>
-            <div *ngIf="registroForm.controls.nombre.invalid && (registroForm.controls.nombre.dirty || registroForm.controls.nombre.touched)">
-              <small class="text-danger">El nombre es requerido.</small>
+<div class="container-fluid p-0">
+  <!-- Cabecera -->
+  <header class="head text-light py-3">
+    <div class="container d-flex align-items-center">
+      <img src="logo/TecnoLab.png" alt="Tecnolab Logo" class="logo">
+      <h1 class="h1 m-0">Tecnolab</h1>
+    </div>
+  
+  </header>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/login">Login</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <body>
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+      <div class="row justify-content-center w-100">
+        <div class="col-md-6 col-lg-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title text-center mb-4">Registro de Usuario</h2>
+              <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                  <label for="nombre" class="form-label">Nombre</label>
+                  <input type="text" id="nombre" class="form-control" formControlName="nombre" placeholder="Ingresa tu nombre" required>
+                  <div *ngIf="registroForm.controls.nombre.invalid && (registroForm.controls.nombre.dirty || registroForm.controls.nombre.touched)">
+                    <small class="text-danger">El nombre es requerido.</small>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="apellidos" class="form-label">Apellidos</label>
+                  <input type="text" id="apellidos" class="form-control" formControlName="apellidos" placeholder="Ingresa tus apellidos" required>
+                  <div *ngIf="registroForm.controls.apellidos.invalid && (registroForm.controls.apellidos.dirty || registroForm.controls.apellidos.touched)">
+                    <small class="text-danger">Los apellidos son requeridos.</small>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" id="email" class="form-control" formControlName="email" placeholder="Ingresa tu email" required>
+                  <div *ngIf="registroForm.controls.email.invalid && (registroForm.controls.email.dirty || registroForm.controls.email.touched)">
+                    <small *ngIf="registroForm.controls.email.errors?.required" class="text-danger">El email es requerido.</small>
+                    <small *ngIf="registroForm.controls.email.errors?.email" class="text-danger">El email debe ser válido.</small>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="password" class="form-label">Contraseña</label>
+                  <input type="password" id="password" class="form-control" formControlName="password" placeholder="Crea una contraseña" required>
+                  <div *ngIf="registroForm.controls.password.invalid && (registroForm.controls.password.dirty || registroForm.controls.password.touched)">
+                    <small *ngIf="registroForm.controls.password.errors?.required" class="text-danger">La contraseña es requerida.</small>
+                    <small *ngIf="registroForm.controls.password.errors?.minlength" class="text-danger">La contraseña debe tener al menos 6 caracteres.</small>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="direccion" class="form-label">Dirección</label>
+                  <input type="text" id="direccion" class="form-control" formControlName="direccion" placeholder="Ingresa tu dirección" required>
+                  <div *ngIf="registroForm.controls.direccion.invalid && (registroForm.controls.direccion.dirty || registroForm.controls.direccion.touched)">
+                    <small class="text-danger">La dirección es requerida.</small>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="dni" class="form-label">DNI</label>
+                  <input type="text" id="dni" class="form-control" formControlName="dni" placeholder="Ingresa tu DNI" required>
+                  <div *ngIf="registroForm.controls.dni.invalid && (registroForm.controls.dni.dirty || registroForm.controls.dni.touched)">
+                    <small class="text-danger">El DNI es requerido.</small>
+                  </div>
+                </div>
+
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-primary" [disabled]="registroForm.invalid">Registrarse</button>
+                </div>
+              </form>
+
+              <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+                {{ errorMessage }}
+              </div>
+            </div>
+
+            <!-- Link para iniciar sesión -->
+            <div class="row mt-3">
+              <div class="col-12 text-center">
+                <button type="button" class="btn btn-primary">
+                  <a href="/login" class="text-light text-decoration-none">Iniciar Sesión</a>
+                </button>
+              </div>
             </div>
           </div>
-  
-          <div class="mb-3">
-            <label for="apellidos" class="form-label">Apellidos</label>
-            <input type="text" id="apellidos" class="form-control" formControlName="apellidos" placeholder="Ingresa tus apellidos" required>
-            <div *ngIf="registroForm.controls.apellidos.invalid && (registroForm.controls.apellidos.dirty || registroForm.controls.apellidos.touched)">
-              <small class="text-danger">Los apellidos son requeridos.</small>
-            </div>
-          </div>
-  
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" id="email" class="form-control" formControlName="email" placeholder="Ingresa tu email" required>
-            <div *ngIf="registroForm.controls.email.invalid && (registroForm.controls.email.dirty || registroForm.controls.email.touched)">
-              <small *ngIf="registroForm.controls.email.errors?.required" class="text-danger">El email es requerido.</small>
-              <small *ngIf="registroForm.controls.email.errors?.email" class="text-danger">El email debe ser válido.</small>
-            </div>
-          </div>
-  
-          <div class="mb-3">
-            <label for="password" class="form-label">Contraseña</label>
-            <input type="password" id="password" class="form-control" formControlName="password" placeholder="Crea una contraseña" required>
-            <div *ngIf="registroForm.controls.password.invalid && (registroForm.controls.password.dirty || registroForm.controls.password.touched)">
-              <small *ngIf="registroForm.controls.password.errors?.required" class="text-danger">La contraseña es requerida.</small>
-              <small *ngIf="registroForm.controls.password.errors?.minlength" class="text-danger">La contraseña debe tener al menos 6 caracteres.</small>
-            </div>
-          </div>
-  
-          <div class="mb-3">
-            <label for="direccion" class="form-label">Dirección</label>
-            <input type="text" id="direccion" class="form-control" formControlName="direccion" placeholder="Ingresa tu dirección" required>
-            <div *ngIf="registroForm.controls.direccion.invalid && (registroForm.controls.direccion.dirty || registroForm.controls.direccion.touched)">
-              <small class="text-danger">La dirección es requerida.</small>
-            </div>
-          </div>
-  
-          <div class="mb-3">
-            <label for="dni" class="form-label">DNI</label>
-            <input type="text" id="dni" class="form-control" formControlName="dni" placeholder="Ingresa tu DNI" required>
-            <div *ngIf="registroForm.controls.dni.invalid && (registroForm.controls.dni.dirty || registroForm.controls.dni.touched)">
-              <small class="text-danger">El DNI es requerido.</small>
-            </div>
-          </div>
-  
-          <div class="d-grid">
-            <button type="submit" class="btn btn-primary" [disabled]="registroForm.invalid">Registrarse</button>
-          </div>
-        </form>
-  
-        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
-          {{ errorMessage }}
         </div>
       </div>
     </div>
-  </div>
-  
+  </body>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-light py-3 mt-auto">
+    <div class="container text-center">
+      <p class="m-0">&copy; 2024 Tecnolab. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</div>

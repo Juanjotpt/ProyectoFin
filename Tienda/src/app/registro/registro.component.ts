@@ -4,11 +4,11 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule,RouterLink],
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css']
 })

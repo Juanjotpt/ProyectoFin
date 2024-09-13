@@ -4,11 +4,12 @@ import { AuthService } from '../../compartido/login/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { jwtDecode } from 'jwt-decode';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule,RouterLink],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })

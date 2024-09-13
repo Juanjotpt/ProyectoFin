@@ -6,5 +6,6 @@ export class ProductoModel {
       public descripcion: string,
       public stock: number,
       public categoria: string,
+      public imagen: string,
     ) {}
   }

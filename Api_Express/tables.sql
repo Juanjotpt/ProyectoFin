@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS productos (
     precio_unitario DECIMAL(10,2),
     stock INT,
     categoria VARCHAR(50),
+    imagen VARCHAR(50),
     PRIMARY KEY (id_producto)
 );
 CREATE TABLE IF NOT EXISTS rol (

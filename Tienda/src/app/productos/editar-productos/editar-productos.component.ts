@@ -19,7 +19,7 @@ import { ProductoService } from '../../compartido/producto/producto.service';
 })
 export class EditarProductosComponent implements OnInit {
   id: number = 0;
-  producto = new ProductoModel(0, '', 0, '', 0, '');
+  producto = new ProductoModel(0, '', 0, '', 0, '','');
 
   formularioProducto = new FormGroup({
     nombre_producto: new FormControl('', Validators.required),
@@ -75,7 +75,8 @@ export class EditarProductosComponent implements OnInit {
         Number(this.formularioProducto.get('precio_unitario')?.value ?? 0),
         this.formularioProducto.get('descripcion')?.value ?? '',
         Number(this.formularioProducto.get('stock')?.value ?? 0),
-        this.formularioProducto.get('categoria')?.value ?? ''
+        this.formularioProducto.get('categoria')?.value ?? '',
+        this.formularioProducto.get('imagen')?.value ?? ''
       );
 
       if (this.id) {
