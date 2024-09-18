@@ -36,6 +36,10 @@ export const routes: Routes = [
     component: ListarProductosComponent,
   },
   {
+    path: 'productos/:id',
+    component: ProductsComponent,
+  },
+  {
     path: 'productos/editar/:id',
     component: EditarProductosComponent,
   },
@@ -57,7 +61,7 @@ export const routes: Routes = [
   },
   {
     path: 'productoscarrito/agregar',
-    component: EditarProductosCarritoComponent,
+    component: ProductsComponent,
   },
   {
     path: 'rol',

@@ -8,13 +8,12 @@ import { ProductosCarritoService } from '../compartido/productos_carrito/product
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
   producto: ProductoModel | undefined; 
-
   productos: ProductoModel[] = []; 
 
   constructor(
@@ -27,7 +26,6 @@ export class ProductsComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     
     if (!isNaN(id)) {
-      // Si el ID es un número válido, se busca el producto
       this.productoService.obtenerProductoId(id).subscribe(
         (data: ProductoModel) => {
           this.producto = data;
@@ -41,7 +39,35 @@ export class ProductsComponent implements OnInit {
     }
   }
 
+  agregarAlCarrito(): void {
+    if (!this.producto) {
+      console.error('No hay producto para agregar al carrito');
+      return;
+    }
+
+    // Obtener el id_carrito del localStorage
+    const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+    const idCarrito = userInfo.id_carrito;
 
 
+    if (!idCarrito) {
+      console.error('No se encontró el id_carrito en el localStorage');
+      return;
+    }
 
+   
+    this.productosCarritoService.agregarProductoCarrito(this.producto.id_producto, 1).subscribe(
+      response => {
+        console.log('Producto agregado al carrito:', response);
+        
+      },
+      error => {
+        console.error('Error al agregar el producto al carrito', error);
+      }
+    );
+  }
 }
+
+
+
+

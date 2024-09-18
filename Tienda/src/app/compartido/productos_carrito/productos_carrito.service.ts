@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ProductosCarritoModel } from './productos_carrito.model'; 
-
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -25,10 +25,27 @@ export class ProductosCarritoService {
   }
 
   // Método para agregar un nuevo producto al carrito
-  agregarProductoCarrito(productoCarrito: ProductosCarritoModel) {
-    // Realiza una solicitud POST para agregar un nuevo producto al carrito, el endpoint espera el producto en el cuerpo de la solicitud
-    return this.http.post<string>(`${this.BASE_URL}/productos_carrito/agregar`, productoCarrito);
+
+  agregarProductoCarrito(id_producto: number, cantidad: number): Observable<any> {
+    const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+    const idCarrito = userInfo.id_carrito;
+  
+    if (!idCarrito) {
+      return new Observable(observer => {
+        observer.error('No se encontró el id_carrito en el localStorage');
+      });
+    }
+  
+    const productoCarrito = {
+      id_producto: id_producto,
+      id_carrito: idCarrito,
+      cantidad: cantidad,
+    };
+  
+    // Asegúrate de que la URL es la correcta
+    return this.http.post(`${this.BASE_URL}/productos_carrito/agregar`, productoCarrito);
   }
+
 
   // Método para actualizar un producto en el carrito
   actualizarProductoCarrito(productoCarrito: ProductosCarritoModel) {

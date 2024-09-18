@@ -57,6 +57,7 @@ export class LoginComponent {
             id: decodedToken.id,
             nombre: decodedToken.nombre,
             rol_tipo: decodedToken.rol_tipo,
+            id_carrito: decodedToken.id_carrito,
           })
         );
 
