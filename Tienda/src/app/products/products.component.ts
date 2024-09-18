@@ -3,6 +3,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductoService } from '../compartido/producto/producto.service';
 import { ProductoModel } from '../compartido/producto/producto.model';
 import { CommonModule } from '@angular/common';
+import { ProductosCarritoService } from '../compartido/productos_carrito/productos_carrito.service';
 
 @Component({
   selector: 'app-products',
@@ -18,7 +19,8 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private productoService: ProductoService
+    private productoService: ProductoService,
+    private productosCarritoService: ProductosCarritoService
   ) {}
 
   ngOnInit(): void {
@@ -38,4 +40,8 @@ export class ProductsComponent implements OnInit {
       console.error('ID de producto inválido');
     }
   }
+
+
+
+
 }

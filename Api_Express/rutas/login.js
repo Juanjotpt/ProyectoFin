@@ -24,7 +24,7 @@ router.post('/registro',
     const newUser = {
       nombre,
       email,
-      password: bcrypt.hashSync(password, 8),
+      password: bcrypt.hashSync(password, 8), // Encriptar la contraseña
       apellidos,
       direccion,
       dni,
@@ -37,12 +37,12 @@ router.post('/registro',
         return res.status(500).send('Error en el servidor');
       }
 
-      const userId = result.insertId;
+      const userId = result.insertId; // Obtener el ID del nuevo usuario
 
-      // Inserción en la tabla roles
+      // Crear el rol del usuario
       const newRole = {
         id_usuario: userId,
-        tipo: 0 // Valor por defecto para el tipo de rol
+        tipo: 0 // Valor por defecto para el tipo de rol (cliente)
       };
 
       const queryRole = 'INSERT INTO rol SET ?';
@@ -52,17 +52,36 @@ router.post('/registro',
           return res.status(500).send('Error en el servidor');
         }
 
-        const expiresIn = 24 * 60 * 60; // 24 horas
-        const accessToken = jwt.sign({ id: userId }, secret_key, {
-          expiresIn: expiresIn,
-        });
+        // Crear un carrito para el nuevo usuario
+        const newCarrito = {
+          id_usuario: userId
+        };
 
-        res.status(201).send({ usuario: { id: userId, nombre, email }, accessToken });
+        const queryCarrito = 'INSERT INTO carrito SET ?';
+        conexion.query(queryCarrito, newCarrito, (err, resultCarrito) => {
+          if (err) {
+            console.error('Error al crear el carrito:', err);
+            return res.status(500).send('Error en el servidor al crear el carrito');
+          }
+
+          const idCarrito = resultCarrito.insertId; // Obtener el ID del carrito creado
+
+          // Generar el token con el ID del usuario y carrito
+          const expiresIn = 24 * 60 * 60;
+          const accessToken = jwt.sign({ id: userId, id_carrito: idCarrito }, secret_key, {
+            expiresIn: expiresIn,
+          });
+
+          // Enviar respuesta con el usuario y el token
+          res.status(201).send({ 
+            usuario: { id: userId, nombre, email, id_carrito: idCarrito }, 
+            accessToken 
+          });
+        });
       });
     });
   }
 );
-
 
 // Ruta para el login de usuarios
 router.post('/', (req, res) => {
@@ -76,18 +95,29 @@ router.post('/', (req, res) => {
       return res.status(401).send('Credenciales incorrectas');
     }
 
-    // Crear el token y llevarnos la información
-    const payload = { id: usuario.id_usuario, rol_tipo: usuario.rol_tipo, nombre: usuario.nombre };
-    const token = jwt.sign(payload, secret_key, { expiresIn: '1h' });
+    // Consultar el carrito del usuario
+    const queryCarrito = 'SELECT id_carrito FROM carrito WHERE id_usuario = ?';
+    conexion.query(queryCarrito, [usuario.id_usuario], (err, resultCarrito) => {
+      if (err) {
+        console.error('Error al obtener el carrito del usuario:', err);
+        return res.status(500).send('Error en el servidor al obtener el carrito');
+      }
 
-    // Redirigir según el tipo de rol
-    if (usuario.rol_tipo === 1) {
-      res.json({ token, redirectTo: '/admin' });
-    } else if (usuario.rol_tipo === 0) {
-      res.json({ token, redirectTo: '/cliente' });
-    } else {
-      res.status(403).send('Rol no reconocido');
-    }
+      const idCarrito = resultCarrito.length > 0 ? resultCarrito[0].id_carrito : null;
+
+      // Crear el token con el ID del usuario, el rol y el carrito
+      const payload = { id: usuario.id_usuario, rol_tipo: usuario.rol_tipo, nombre: usuario.nombre, id_carrito: idCarrito };
+      const token = jwt.sign(payload, secret_key, { expiresIn: '1h' });
+
+      // Redirigir según el tipo de rol
+      if (usuario.rol_tipo === 1) {
+        res.json({ token, redirectTo: '/admin' });
+      } else if (usuario.rol_tipo === 0) {
+        res.json({ token, redirectTo: '/cliente' });
+      } else {
+        res.status(403).send('Rol no reconocido');
+      }
+    });
   });
 });
 

@@ -46,6 +46,7 @@ router.post('/agregar', (req, res) => { // Ruta base
     });
 });
 
+
 // Ruta para actualizar un producto por su ID
 router.put('/actualizar/:id', (req, res) => { // Ruta base
     const { id } = req.params;
