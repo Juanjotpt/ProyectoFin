@@ -9,11 +9,11 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { ProductoModel } from '../../compartido/producto/producto.model';
 import { ProductoService } from '../../compartido/producto/producto.service';
-
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-editar-productos',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, ReactiveFormsModule],
+  imports: [CommonModule, RouterOutlet, ReactiveFormsModule,RouterLink],
   templateUrl: './editar-productos.component.html',
   styleUrls: ['./editar-productos.component.css'],
 })

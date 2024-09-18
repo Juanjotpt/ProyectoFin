@@ -32,11 +32,11 @@ export class ListarUsuariosComponent implements OnInit {
     this.usuarioService.borrarUsuario(id).subscribe({
       next: (result) => {
         console.log(result);
-        this.cargarUsuarios(); // Recargar la lista de usuarios después de eliminar
+        this.cargarUsuarios(); 
       },
       error: (error: HttpErrorResponse) => {
         if (error.status === 500) {
-          // 409 Conflict, usado para relaciones referenciales
+       
           this.abrirModal();
         } else {
           console.error('Error inesperado:', error.message);

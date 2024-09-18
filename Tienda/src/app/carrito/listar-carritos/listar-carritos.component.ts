@@ -33,10 +33,10 @@ export class ListarCarritosComponent implements OnInit {
     this.carritoService.borrarCarrito(id).subscribe({
       next: (result) => {
         console.log(result);
-        this.cargarCarritos(); // Recargar la lista de carritos después de eliminar
+        this.cargarCarritos(); 
       },
       error: (error: HttpErrorResponse) => {
-        if (error.status === 500) { // 500 Internal Server Error, podría ser usado para relaciones referenciales
+        if (error.status === 500) { 
        
         } else {
           console.error("Error inesperado:", error.message);

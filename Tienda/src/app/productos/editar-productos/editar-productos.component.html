@@ -1,3 +1,31 @@
+
+<header class="head text-light py-3">
+  <div class="container d-flex align-items-center ">
+    <img src="logo/TecnoLab.png" alt="Tecnolab Logo" class="logo">
+    <h1 class="h1 m-0">Tecnolab</h1>
+    
+  </div>
+
+</header>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/productos">Volver</a>
+    <a class="navbar-brand" routerLink="/login">Inicio</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav me-auto"> 
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/login">Logout</a>
+        </li>
+      </ul>
+   
+    </div>
+  </div>
+</nav>
+
+
 <div class="row">
     <div class="col-sm-12">
       <form [formGroup]="formularioProducto" (ngSubmit)="submit()">
@@ -29,4 +57,10 @@
       </form>
     </div>
   </div>
+  <footer class="bg-dark text-light py-4">
+    <div class="container text-center">
+      <p>&copy; 2024 TecnoLab. Todos los derechos reservados.</p>
+      <p><a routerLink="/privacidad" class="text-light">Política de Privacidad</a> | <a routerLink="/terminos" class="text-light">Términos y Condiciones</a></p>
+    </div>
+  </footer>
   

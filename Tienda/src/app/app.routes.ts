@@ -17,6 +17,7 @@ import { AdminComponent } from './admin/admin.component';
 import { RegistroComponent } from './registro/registro.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { ProductsComponent } from './products/products.component';
+import { VerCarritoComponent } from './ver-carrito/ver-carrito.component';
 
 export const routes: Routes = [
   {
@@ -118,6 +119,10 @@ export const routes: Routes = [
   {
     path: 'productos/:id',
     component: ProductsComponent
+  },
+  {
+    path: 'verCarrito/:id',
+    component: VerCarritoComponent
   },
  
   {

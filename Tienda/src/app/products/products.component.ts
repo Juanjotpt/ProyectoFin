@@ -16,6 +16,7 @@ export class ProductsComponent implements OnInit {
   producto: ProductoModel | undefined; 
   productos: ProductoModel[] = []; 
 
+  userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
   constructor(
     private route: ActivatedRoute,
     private productoService: ProductoService,
@@ -45,7 +46,7 @@ export class ProductsComponent implements OnInit {
       return;
     }
 
-    // Obtener el id_carrito del localStorage
+   
     const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
     const idCarrito = userInfo.id_carrito;
 

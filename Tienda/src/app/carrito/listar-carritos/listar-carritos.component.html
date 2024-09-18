@@ -1,16 +1,40 @@
-<div class="container">
-  <a routerLink="/admin" class="btn btn-primary" style="background-color: #e3f2fd; color: #0d6efd; font-weight: bold;">
-    Volver
-  </a>
+
+
+<header class="head text-light py-3">
+  <div class="container d-flex align-items-center ">
+    <img src="logo/TecnoLab.png" alt="Tecnolab Logo" class="logo">
+    <h1 class="h1 m-0">Tecnolab</h1>
     
-  <a class="btn btn-primary" routerLink="/carritos/agregar">Agregar Carrito</a>
+  </div>
+
+</header>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/admin">Volver</a>
+    <a class="navbar-brand" routerLink="/login">Inicio</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav me-auto"> 
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/login">Logout</a>
+        </li>
+      </ul>
+    
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
       <th class="col-sm-3">ID Carrito</th>
       <th class="col-sm-3">Usuario</th>
-      <th class="col-sm-3">Editar</th>
+      
       <th class="col-sm-3">Borrar</th>
     </tr>
   </thead>
@@ -20,13 +44,7 @@
       <tr>
       <td class="col-sm-3">{{ carrito.id_carrito }}</td>
       <td class="col-sm-3">{{ carrito.nombre_usuario }}</td>
-      <fieldset class="form-group">
-        <a
-          class="btn btn-primary"
-          routerLink="/carritos/editar/{{carrito.id_usuario}}"
-          >Editar</a
-        >
-      </fieldset>
+     
    
     <td>
     <fieldset class="form-group">
@@ -42,3 +60,9 @@
   }
 </tbody>
 </table>
+<footer class="bg-dark text-light py-4">
+  <div class="container text-center">
+    <p>&copy; 2024 TecnoLab. Todos los derechos reservados.</p>
+    <p><a routerLink="/privacidad" class="text-light">Política de Privacidad</a> | <a routerLink="/terminos" class="text-light">Términos y Condiciones</a></p>
+  </div>
+</footer>

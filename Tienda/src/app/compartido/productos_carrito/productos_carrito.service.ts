@@ -61,4 +61,9 @@ export class ProductosCarritoService {
     // Realiza una solicitud DELETE para borrar un producto específico del carrito por su ID
     return this.http.delete<string>(`${this.BASE_URL}/productos_carrito/borrar/${id}`);
   }
+
+  obtenerProductosPorIdCarrito(id_carrito: number): Observable<ProductosCarritoModel[]> {
+    return this.http.get<ProductosCarritoModel[]>(`${this.BASE_URL}/productos_carrito/carrito/${id_carrito}`);
+  }
+
 }

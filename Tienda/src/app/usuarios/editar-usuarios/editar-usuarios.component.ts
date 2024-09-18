@@ -9,11 +9,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { UsuarioModel } from '../../compartido/usuario/usuario.model';
 import { UsuarioService } from '../../compartido/usuario/usuario.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-editar-usuarios',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, ReactiveFormsModule],
+  imports: [CommonModule, RouterOutlet, ReactiveFormsModule,RouterLink],
   templateUrl: './editar-usuarios.component.html',
   styleUrls: ['./editar-usuarios.component.css'],
 })
