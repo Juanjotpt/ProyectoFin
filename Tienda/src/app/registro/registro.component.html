@@ -18,6 +18,9 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/contacto">Contacto</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -91,7 +94,7 @@
               </div>
             </div>
 
-            <!-- Link para iniciar sesión -->
+        
             <div class="row mt-3">
               <div class="col-12 text-center">
                 <button type="button" class="btn btn-primary">
@@ -104,8 +107,21 @@
       </div>
     </div>
   </body>
+  <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="errorModalLabel">Registro realizado correctamente</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!-- Footer -->
+
   <footer class="bg-dark text-light py-3 mt-auto">
     <div class="container text-center">
       <p class="m-0">&copy; 2024 Tecnolab. Todos los derechos reservados.</p>

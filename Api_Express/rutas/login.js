@@ -83,7 +83,7 @@ router.post('/registro',
   }
 );
 
-// Ruta para el login de usuarios
+
 router.post('/', (req, res) => {
   const { email, password } = req.body;
 
@@ -95,7 +95,7 @@ router.post('/', (req, res) => {
       return res.status(401).send('Credenciales incorrectas');
     }
 
-    // Consultar el carrito del usuario
+  
     const queryCarrito = 'SELECT id_carrito FROM carrito WHERE id_usuario = ?';
     conexion.query(queryCarrito, [usuario.id_usuario], (err, resultCarrito) => {
       if (err) {
@@ -109,7 +109,7 @@ router.post('/', (req, res) => {
       const payload = { id: usuario.id_usuario, rol_tipo: usuario.rol_tipo, nombre: usuario.nombre, id_carrito: idCarrito };
       const token = jwt.sign(payload, secret_key, { expiresIn: '1h' });
 
-      // Redirigir según el tipo de rol
+     
       if (usuario.rol_tipo === 1) {
         res.json({ token, redirectTo: '/admin' });
       } else if (usuario.rol_tipo === 0) {

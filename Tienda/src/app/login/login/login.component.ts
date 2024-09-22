@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { jwtDecode } from 'jwt-decode';
 import { RouterLink } from '@angular/router';
 
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -49,7 +50,6 @@ export class LoginComponent {
         const token = response.token;
         localStorage.setItem('authToken', token);
 
-        // Decodificar el token para extraer la información del usuario
         const decodedToken: any = jwtDecode(token);
         localStorage.setItem(
           'userInfo',
@@ -61,13 +61,21 @@ export class LoginComponent {
           })
         );
 
-        // Redirigir a la ruta adecuada
         const redirectRoute = response.redirectTo || '/';
         this.router.navigate([redirectRoute]);
       },
       (error) => {
         console.error('Error en el login', error);
+        this.showErrorModal(); 
       }
     );
+  }
+
+  showErrorModal(): void {
+    const modalElement = document.getElementById('errorModal'); 
+    if (modalElement) {
+      const bootstrapModal = new (window as any).bootstrap.Modal(modalElement); 
+      bootstrapModal.show(); 
+    }
   }
 }

@@ -42,11 +42,19 @@ export class RegistroComponent {
       next: (response: any) => {
         // Redirige al usuario a la página de inicio de sesión o donde prefieras
         this.router.navigate(['/login']);
+        this.showErrorModal(); 
       },
       error: (error) => {
         console.error('Error al registrarse:', error);
         this.errorMessage = 'Ocurrió un error al intentar registrarse. Por favor, inténtelo de nuevo más tarde.';
       }
     });
+  }
+  showErrorModal(): void {
+    const modalElement = document.getElementById('errorModal'); 
+    if (modalElement) {
+      const bootstrapModal = new (window as any).bootstrap.Modal(modalElement); 
+      bootstrapModal.show(); 
+    }
   }
 }

@@ -18,6 +18,7 @@ import { RegistroComponent } from './registro/registro.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { ProductsComponent } from './products/products.component';
 import { VerCarritoComponent } from './ver-carrito/ver-carrito.component';
+import { ContactoComponent } from './contacto/contacto.component';
 
 export const routes: Routes = [
   {
@@ -123,6 +124,10 @@ export const routes: Routes = [
   {
     path: 'verCarrito/:id',
     component: VerCarritoComponent
+  },
+  {
+    path: 'contacto',
+    component: ContactoComponent
   },
  
   {
