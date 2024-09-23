@@ -15,7 +15,7 @@ import { RouterOutlet } from '@angular/router';
 export class VerCarritoComponent {
   productosCarrito: ProductosCarritoModel[] = [];
   totalCarrito: number = 0;
-
+  carritoVacio: boolean = false;
   constructor(private productosCarritoService: ProductosCarritoService) {}
 
   ngOnInit() {
@@ -25,11 +25,12 @@ export class VerCarritoComponent {
   cargarCarrito() {
     const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
     const idCarrito = userInfo.id_carrito;
-
+  
     if (idCarrito) {
       this.productosCarritoService.obtenerProductosPorIdCarrito(idCarrito).subscribe(
         (productos) => {
           this.productosCarrito = productos;
+          this.carritoVacio = this.productosCarrito.length === 0; // Actualiza la variable
           this.calcularTotal();
         },
         (error) => {
@@ -41,11 +42,15 @@ export class VerCarritoComponent {
     }
   }
 
+
   calcularTotal() {
+   
     this.totalCarrito = this.productosCarrito.reduce((total, producto) => {
       return total + (producto.cantidad * producto.precio_unitario);
     }, 0);
-  }
+  
+}
+  
 
   cambiarCantidad(producto: ProductosCarritoModel, increment: boolean) {
     if (increment) {
@@ -56,21 +61,40 @@ export class VerCarritoComponent {
       }
     }
     this.calcularTotal();
-    // Lógica para actualizar la cantidad en el servidor
+ 
     this.productosCarritoService.actualizarProductoCarrito(producto).subscribe();
+  }
+
+  borrarProducto(productoId: number) {
+    this.productosCarritoService.borrarProductoCarrito(productoId).subscribe(
+      () => {
+        this.productosCarrito = this.productosCarrito.filter(p => p.id_productos_carrito !== productoId);
+        this.calcularTotal();
+      },
+      (error) => {
+        console.error('Error al eliminar el producto', error);
+      }
+    );
   }
 
   comprar() {
     alert("Compra realizada");
-    // Lógica para procesar la compra y vaciar el carrito en el servidor
+    
     const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
     const idCarrito = userInfo.id_carrito;
-
+  
     if (idCarrito) {
-      this.productosCarritoService.borrarProductoCarrito(idCarrito).subscribe(() => {
-        this.productosCarrito = [];
-        this.totalCarrito = 0;
-      });
+     
+      this.productosCarritoService.vaciarCarrito(idCarrito).subscribe(
+        () => {
+      
+          this.productosCarrito = [];
+          this.totalCarrito = 0;
+        },
+        (error) => {
+          console.error('Error al vaciar el carrito', error);
+        }
+      );
     }
   }
 }

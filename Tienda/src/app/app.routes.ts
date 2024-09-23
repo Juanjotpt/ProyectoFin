@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './compartido/login/auth.guard';
 import { ListarUsuariosComponent } from './usuarios/listar-usuarios/listar-usuarios.component';
 import { EditarUsuariosComponent } from './usuarios/editar-usuarios/editar-usuarios.component';
 import { ListarProductosComponent } from './productos/listar-productos/listar-productos.component';
@@ -24,18 +25,26 @@ export const routes: Routes = [
   {
     path: 'usuarios',
     component: ListarUsuariosComponent,
+    canActivate: [AuthGuard],
+    data: {requiredRole:1}
   },
   {
     path: 'usuarios/editar/:id',
     component: EditarUsuariosComponent,
+    canActivate: [AuthGuard],
+    data: {requiredRole:1}
   },
   {
     path: 'usuarios/agregar',
     component: EditarUsuariosComponent,
+    canActivate: [AuthGuard],
+    data: {requiredRole:1}
   },
   {
     path: 'productos',
     component: ListarProductosComponent,
+    canActivate: [AuthGuard],
+    data: {requiredRole:1}
   },
   {
     path: 'productos/:id',
@@ -44,14 +53,20 @@ export const routes: Routes = [
   {
     path: 'productos/editar/:id',
     component: EditarProductosComponent,
+    canActivate: [AuthGuard],
+    data: {requiredRole:1}
   },
   {
     path: 'productos/agregar',
     component: EditarProductosComponent,
+    canActivate: [AuthGuard],
+    data: {requiredRole:1}
   },
   {
     path: 'carritos',
     component: ListarCarritosComponent,
+    canActivate: [AuthGuard],
+    data: {requiredRole:1}
   },
   {
     path: 'productoscarrito',
@@ -66,12 +81,20 @@ export const routes: Routes = [
     component: ProductsComponent,
   },
   {
+    path: 'productoscarrito/borrar/:id',
+    component: ProductsComponent,
+  },
+  {
     path: 'rol',
     component: ListarRolComponent,
+    canActivate: [AuthGuard],
+    data: {requiredRole:1}
   },
   {
     path: 'rol/editar/:id',
     component: EditarRolComponent,
+    canActivate: [AuthGuard],
+    data: {requiredRole:1}
   },
   {
     path: 'rol/agregar',
@@ -80,26 +103,39 @@ export const routes: Routes = [
   {
     path: 'ventas',
     component: ListarVentasComponent,
+    canActivate: [AuthGuard],
+    data: {requiredRole:1}
   },
   {
     path: 'ventas/editar/:id',
     component: EditarVentasComponent,
+    canActivate: [AuthGuard],
+    data: {requiredRole:1}
   },
   {
     path: 'ventas/agregar',
     component: EditarVentasComponent,
+    canActivate: [AuthGuard],
+    data: {requiredRole:1}
   },
   {
     path: 'detalleVenta',
-    component: ListarDetallesVentasComponent
+    component: ListarDetallesVentasComponent,
+    canActivate: [AuthGuard],
+    data: {requiredRole:1}
+    
   },
   {
     path: 'detalleVenta/editar/:id',
-    component: EditarDetalleVentaComponent
+    component: EditarDetalleVentaComponent,
+    canActivate: [AuthGuard],
+    data: {requiredRole:1}
   },
   {
     path: 'detalleVenta/agregar',
-    component: EditarDetalleVentaComponent
+    component: EditarDetalleVentaComponent,
+    canActivate: [AuthGuard],
+    data: {requiredRole:1}
   },
   {
     path: 'login',
@@ -107,7 +143,9 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    component: AdminComponent
+    component: AdminComponent,
+    canActivate: [AuthGuard],
+    data: {requiredRole:1}
   },
   {
     path: 'registro',

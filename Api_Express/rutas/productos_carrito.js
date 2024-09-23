@@ -6,7 +6,7 @@ const conexion = require('../models/conexion.js');
 
 
 
-router.get("/productos_carrito", (req, res) => {
+router.get("/", (req, res) => {
     const query = "SELECT * FROM productos_carrito";
     conexion.query(query, (error, resultado) => {
       if (error) {
@@ -118,7 +118,7 @@ router.get("/productos_carrito", (req, res) => {
   });
   
  
-  router.put("/productos_carrito/actualizar/:id", (req, res) => {
+  router.put("/actualizar/:id", (req, res) => {
     const { id } = req.params;
     const { id_producto, id_carrito, cantidad } = req.body;
     const query = `
@@ -138,7 +138,7 @@ router.get("/productos_carrito", (req, res) => {
   });
   
  
-  router.delete("/productos_carrito/borrar/:id", (req, res) => {
+  router.delete("/borrar/:id", (req, res) => {
     const { id } = req.params;
     const query = `DELETE FROM productos_carrito WHERE id_productos_carrito = ?`;
     conexion.query(query, [id], (error, resultado) => {
@@ -149,6 +149,20 @@ router.get("/productos_carrito", (req, res) => {
           .send("Error al eliminar el producto del carrito");
       } else {
         res.json("Se eliminó el producto del carrito");
+      }
+    });
+  });
+
+  router.delete("/borrar_todo/:id_carrito", (req, res) => {
+    const { id_carrito } = req.params;
+    const query = `DELETE FROM productos_carrito WHERE id_carrito = ?`;
+    
+    conexion.query(query, [id_carrito], (error, resultado) => {
+      if (error) {
+        console.error(error.message);
+        res.status(500).send("Error al vaciar el carrito");
+      } else {
+        res.json("Se vació correctamente el carrito");
       }
     });
   });

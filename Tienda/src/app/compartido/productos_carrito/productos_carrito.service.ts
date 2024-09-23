@@ -65,5 +65,11 @@ export class ProductosCarritoService {
   obtenerProductosPorIdCarrito(id_carrito: number): Observable<ProductosCarritoModel[]> {
     return this.http.get<ProductosCarritoModel[]>(`${this.BASE_URL}/productos_carrito/carrito/${id_carrito}`);
   }
+  vaciarCarrito(id_carrito: number): Observable<any> {
+    return this.http.delete(`${this.BASE_URL}/productos_carrito/borrar_todo/${id_carrito}`);
+  }
+
+
+
 
 }
