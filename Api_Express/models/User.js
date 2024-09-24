@@ -9,6 +9,7 @@ const verificarUsuario = (email, password, callback) => {
       usuarios.nombre, 
       usuarios.apellidos, 
       usuarios.email, 
+      usuarios.direccion,
       usuarios.password AS hashed_password,
       rol.tipo AS rol_tipo
     FROM 
@@ -39,16 +40,19 @@ const verificarUsuario = (email, password, callback) => {
       }
 
       if (res) {
-        // Contraseña correcta, devuelve el usuario con rol_tipo
+       
         return callback(null, {
           id_usuario: usuario.id_usuario,
           nombre: usuario.nombre,
           email: usuario.email,
-          rol_tipo: usuario.rol_tipo
+          rol_tipo: usuario.rol_tipo,
+          direccion: usuario.direccion,
+          
+
         });
       } else {
         console.log('Contraseña incorrecta');
-        return callback(null, null); // Contraseña incorrecta
+        return callback(null, null); 
       }
     });
   });

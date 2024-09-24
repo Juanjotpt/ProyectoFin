@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
 const { verificarUsuario } = require('../models/User');
 
-const secret_key = 'secretkey123456'; // Debe ser un secreto fuerte
+const secret_key = 'secretkey123456'; 
 
 // Ruta para el registro de usuarios
 router.post('/registro',
@@ -106,7 +106,7 @@ router.post('/', (req, res) => {
       const idCarrito = resultCarrito.length > 0 ? resultCarrito[0].id_carrito : null;
 
       // Crear el token con el ID del usuario, el rol y el carrito
-      const payload = { id: usuario.id_usuario, rol_tipo: usuario.rol_tipo, nombre: usuario.nombre, id_carrito: idCarrito };
+      const payload = { id: usuario.id_usuario, rol_tipo: usuario.rol_tipo, nombre: usuario.nombre, id_carrito: idCarrito, email: usuario.email, direccion: usuario.direccion };
       const token = jwt.sign(payload, secret_key, { expiresIn: '1h' });
 
      

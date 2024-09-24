@@ -4,6 +4,7 @@
     <h1 class="h1 m-0">Tecnolab</h1>
   </div>
 </header>
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/cliente">Volver</a>
@@ -22,9 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/login"
-            >Logout</a
-          >
+          <a class="nav-link active" aria-current="page" href="/login">Logout</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/contacto">Contacto</a>
@@ -34,62 +33,57 @@
   </div>
 </nav>
 
-
-
-<div *ngIf="carritoVacio">
+<div *ngIf="carritoVacio; else productos">
   <h2 class="text-center mb-4">Tu Carrito de Compras</h2>
+  <p class="text-center text-muted">Tu carrito está vacío</p>
+</div>
 
-  @for(producto of productosCarrito; track productosCarrito){
-    <div class="row">
-      <div class="card shadow-sm border-light">
-        <div class="card-body p-4">
-          <div class="d-flex justify-content-between mb-3">
-            <span class="text-muted">Producto:</span>
-            <span class="font-weight-bold">{{ producto.nombre_producto }}</span>
-          </div>
-          <div class="d-flex justify-content-between mb-3">
-            <span class="text-muted">Cantidad:</span>
-            <div class="d-flex align-items-center">
-              <button class="btn btn-outline-secondary btn-sm" (click)="cambiarCantidad(producto, false)">-</button>
-              <span class="mx-2">{{ producto.cantidad }}</span>
-              <button class="btn btn-outline-secondary btn-sm" (click)="cambiarCantidad(producto, true)">+</button>
-            </div>
-          </div>
-          <div class="d-flex justify-content-between mb-3">
-            <span class="text-muted">Precio Unitario:</span>
-            <span>{{ producto.precio_unitario }}€</span>
-          </div>
-          <hr class="my-4" />
-          <div class="d-flex justify-content-between mb-3">
-            <span class="font-weight-bold text-uppercase">Total:</span>
-            <span class="font-weight-bold">{{ (producto.cantidad * producto.precio_unitario).toFixed(2) }}€</span>
-          </div>
-          <div class="d-flex justify-content-between mb-3">
-            <button class="btn btn-danger" (click)="borrarProducto(producto.id_productos_carrito)">Eliminar</button>
+<ng-template #productos>
+  <h2 class="text-center mb-4">Tu Carrito de Compras</h2>
+  <div *ngFor="let producto of productosCarrito; trackBy: trackByFn" class="row">
+    <div class="card shadow-sm border-light">
+      <div class="card-body p-4">
+        <div class="d-flex justify-content-between mb-3">
+          <span class="text-muted">Producto:</span>
+          <span class="font-weight-bold">{{ producto.nombre_producto }}</span>
+        </div>
+        <div class="d-flex justify-content-between mb-3">
+          <span class="text-muted">Cantidad:</span>
+          <div class="d-flex align-items-center">
+            <button class="btn btn-outline-secondary btn-sm" (click)="cambiarCantidad(producto, false)">-</button>
+            <span class="mx-2">{{ producto.cantidad }}</span>
+            <button class="btn btn-outline-secondary btn-sm" (click)="cambiarCantidad(producto, true)">+</button>
           </div>
         </div>
+        <div class="d-flex justify-content-between mb-3">
+          <span class="text-muted">Precio Unitario:</span>
+          <span>{{ producto.precio_unitario }}€</span>
+        </div>
+        <hr class="my-4" />
+        <div class="d-flex justify-content-between mb-3">
+          <span class="font-weight-bold text-uppercase">Total:</span>
+          <span class="font-weight-bold">{{ (producto.cantidad * producto.precio_unitario).toFixed(2) }}€</span>
+        </div>
+        <div class="d-flex justify-content-between mb-3">
+          <button class="btn btn-danger" (click)="borrarProducto(producto.id_productos_carrito)">Eliminar</button>
+        </div>
       </div>
+    </div>
   </div>
-  }
-</div>
 
-<div class="text-center mt-4">
-  <p>Total carrito: {{ totalCarrito.toFixed(2) }}€</p>
-  <button class="btn btn-success" (click)="comprar()">Comprar</button>
-</div>
-
-
-<ng-template #carritoVacio>
-  <p class="text-center text-muted">Tu carrito está vacío</p>
+  <div class="text-center mt-4">
+    <p>Total carrito: {{ totalCarrito.toFixed(2) }}€</p>
+    <button class="btn btn-success" (click)="comprar()">Comprar</button>
+    <button class="btn btn-info" (click)="generarPDF()">Generar Factura</button>
+  </div>
 </ng-template>
 
-
 <footer class="bg-dark text-light py-4">
-<div class="container text-center">
-  <p>&copy; 2024 TecnoLab. Todos los derechos reservados.</p>
-  <p>
-    <a routerLink="/privacidad" class="text-light">Política de Privacidad</a>
-    | <a routerLink="/terminos" class="text-light">Términos y Condiciones</a>
-  </p>
-</div>
+  <div class="container text-center">
+    <p>&copy; 2024 TecnoLab. Todos los derechos reservados.</p>
+    <p>
+      <a routerLink="/privacidad" class="text-light">Política de Privacidad</a>
+      | <a routerLink="/terminos" class="text-light">Términos y Condiciones</a>
+    </p>
+  </div>
 </footer>
