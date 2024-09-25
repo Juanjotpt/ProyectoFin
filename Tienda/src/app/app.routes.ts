@@ -9,10 +9,6 @@ import { ListarProductosCarritoComponent } from './productos_carrito/listar-prod
 import { EditarProductosCarritoComponent } from './productos_carrito/editar-productos-carrito/editar-productos-carrito.component';
 import { EditarRolComponent } from './rol/editar-rol/editar-rol.component';
 import { ListarRolComponent } from './rol/listar-rol/listar-rol.component';
-import { ListarVentasComponent } from './ventas/listar-ventas/listar-ventas.component';
-import { EditarVentasComponent } from './ventas/editar-ventas/editar-ventas.component';
-import { ListarDetallesVentasComponent } from './detalle_venta/listar-detalle-venta/listar-detalle-venta.component';
-import { EditarDetalleVentaComponent } from './detalle_venta/editar-detalle-venta/editar-detalle-venta.component';
 import { LoginComponent } from './login/login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { RegistroComponent } from './registro/registro.component';
@@ -20,123 +16,108 @@ import { ClientesComponent } from './clientes/clientes.component';
 import { ProductsComponent } from './products/products.component';
 import { VerCarritoComponent } from './ver-carrito/ver-carrito.component';
 import { ContactoComponent } from './contacto/contacto.component';
+import { PrivacidadComponent } from './privacidad/privacidad.component';
 
-export const routes: Routes = [
+
+const usuarioRoutes: Routes = [
   {
     path: 'usuarios',
     component: ListarUsuariosComponent,
     canActivate: [AuthGuard],
-    data: {requiredRole:1}
+    data: { requiredRole: 1 }
   },
   {
     path: 'usuarios/editar/:id',
     component: EditarUsuariosComponent,
     canActivate: [AuthGuard],
-    data: {requiredRole:1}
+    data: { requiredRole: 1 }
   },
   {
     path: 'usuarios/agregar',
     component: EditarUsuariosComponent,
     canActivate: [AuthGuard],
-    data: {requiredRole:1}
-  },
+    data: { requiredRole: 1 }
+  }
+];
+
+
+const productoRoutes: Routes = [
   {
     path: 'productos',
     component: ListarProductosComponent,
     canActivate: [AuthGuard],
-    data: {requiredRole:1}
-  },
-  {
-    path: 'productos/:id',
-    component: ProductsComponent,
+    data: { requiredRole: 1 }
   },
   {
     path: 'productos/editar/:id',
     component: EditarProductosComponent,
     canActivate: [AuthGuard],
-    data: {requiredRole:1}
+    data: { requiredRole: 1 }
   },
   {
     path: 'productos/agregar',
     component: EditarProductosComponent,
     canActivate: [AuthGuard],
-    data: {requiredRole:1}
+    data: { requiredRole: 1 }
   },
+  {
+    path: 'productos/:id',
+    component: ProductsComponent
+  }
+];
+
+
+const carritoRoutes: Routes = [
   {
     path: 'carritos',
     component: ListarCarritosComponent,
     canActivate: [AuthGuard],
-    data: {requiredRole:1}
+    data: { requiredRole: 1 }
   },
   {
     path: 'productoscarrito',
-    component: ListarProductosCarritoComponent,
+    component: ListarProductosCarritoComponent
   },
   {
     path: 'productoscarrito/editar/:id',
-    component: EditarProductosCarritoComponent,
+    component: EditarProductosCarritoComponent
   },
   {
     path: 'productoscarrito/agregar',
-    component: ProductsComponent,
+    component: ProductsComponent
   },
   {
     path: 'productoscarrito/borrar/:id',
-    component: ProductsComponent,
-  },
+    component: ProductsComponent
+  }
+];
+
+
+const rolRoutes: Routes = [
   {
     path: 'rol',
     component: ListarRolComponent,
     canActivate: [AuthGuard],
-    data: {requiredRole:1}
+    data: { requiredRole: 1 }
   },
   {
     path: 'rol/editar/:id',
     component: EditarRolComponent,
     canActivate: [AuthGuard],
-    data: {requiredRole:1}
+    data: { requiredRole: 1 }
   },
   {
     path: 'rol/agregar',
-    component: EditarRolComponent,
-  },
-  {
-    path: 'ventas',
-    component: ListarVentasComponent,
-    canActivate: [AuthGuard],
-    data: {requiredRole:1}
-  },
-  {
-    path: 'ventas/editar/:id',
-    component: EditarVentasComponent,
-    canActivate: [AuthGuard],
-    data: {requiredRole:1}
-  },
-  {
-    path: 'ventas/agregar',
-    component: EditarVentasComponent,
-    canActivate: [AuthGuard],
-    data: {requiredRole:1}
-  },
-  {
-    path: 'detalleVenta',
-    component: ListarDetallesVentasComponent,
-    canActivate: [AuthGuard],
-    data: {requiredRole:1}
-    
-  },
-  {
-    path: 'detalleVenta/editar/:id',
-    component: EditarDetalleVentaComponent,
-    canActivate: [AuthGuard],
-    data: {requiredRole:1}
-  },
-  {
-    path: 'detalleVenta/agregar',
-    component: EditarDetalleVentaComponent,
-    canActivate: [AuthGuard],
-    data: {requiredRole:1}
-  },
+    component: EditarRolComponent
+  }
+];
+
+
+export const routes: Routes = [
+  ...usuarioRoutes,
+  ...productoRoutes,
+  ...carritoRoutes,
+  ...rolRoutes,
   {
     path: 'login',
     component: LoginComponent
@@ -145,7 +126,7 @@ export const routes: Routes = [
     path: 'admin',
     component: AdminComponent,
     canActivate: [AuthGuard],
-    data: {requiredRole:1}
+    data: { requiredRole: 1 }
   },
   {
     path: 'registro',
@@ -156,10 +137,6 @@ export const routes: Routes = [
     component: ClientesComponent
   },
   {
-    path: 'productos/:id',
-    component: ProductsComponent
-  },
-  {
     path: 'verCarrito/:id',
     component: VerCarritoComponent
   },
@@ -167,11 +144,13 @@ export const routes: Routes = [
     path: 'contacto',
     component: ContactoComponent
   },
- 
+  {
+    path: 'privacidad',
+    component: PrivacidadComponent
+  },
   {
     path: '**',
     redirectTo: '/login',
     pathMatch: 'full',
   },
 ];
-

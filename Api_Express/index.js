@@ -50,7 +50,7 @@ conexion.connect((error) => {
   console.log("Exito en la conexión");
 
   // Ejecutar cada sentencia individualmente
-  /*queries.forEach((query, index) => {
+  queries.forEach((query, index) => {
     conexion.query(query, (err, results) => {
       if (err) {
         console.error(`Error ejecutando la consulta ${index + 1}:`, err.stack);
@@ -68,15 +68,15 @@ conexion.connect((error) => {
       }
       console.log(`Consulta ${index + 1} ejecutada exitosamente:`, results);
     });
-  });*/
+  });
 
   const usuariosRoutes = require("./rutas/usuarios");
   const productosRoutes = require("./rutas/productos");
   const carritoRoutes = require("./rutas/carritos");
   const productosCarritoRoutes = require("./rutas/productos_carrito");
   const rolesRoutes = require("./rutas/roles");
-  const ventasRoutes = require("./rutas/ventas");
-  const detalleVentaRoutes= require("./rutas/detalle_venta");
+ 
+
   const loginRoutes= require("./rutas/login");
   
 
@@ -86,8 +86,8 @@ conexion.connect((error) => {
   app.use("/carritos", carritoRoutes);
   app.use("/productos_carrito", productosCarritoRoutes);
   app.use("/roles", rolesRoutes);
-  app.use("/ventas", ventasRoutes);
-  app.use("/detalle_venta", detalleVentaRoutes);
+
+ 
   app.use("/login", loginRoutes);
   
 

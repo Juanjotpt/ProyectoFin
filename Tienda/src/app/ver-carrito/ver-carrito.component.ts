@@ -4,9 +4,8 @@ import { ProductosCarritoService } from '../compartido/productos_carrito/product
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import {jsPDF} from 'jspdf';
-import 'jspdf-autotable';
-
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-ver-carrito',
@@ -16,40 +15,47 @@ import 'jspdf-autotable';
   styleUrls: ['./ver-carrito.component.css'],
 })
 export class VerCarritoComponent {
-  productosCarrito: ProductosCarritoModel[] = [];
+  productosCarrito: ProductosCarritoModel[] = []; // Inicializa como arreglo vacío
   totalCarrito: number = 0;
-  carritoVacio: boolean = false;
+  carritoVacio: boolean = true; // Inicializa como verdadero
   userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
 
-  nombre: string= this.userInfo.nombre;
+  nombre: string = this.userInfo.nombre;
+
   constructor(private productosCarritoService: ProductosCarritoService) {}
 
   ngOnInit() {
     this.cargarCarrito();
   }
+
   trackByFn(index: number, item: ProductosCarritoModel) {
     return item.id_productos_carrito; 
   }
+
   cargarCarrito() {
     const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
     const idCarrito = userInfo.id_carrito;
-  
+
     if (idCarrito) {
       this.productosCarritoService
         .obtenerProductosPorIdCarrito(idCarrito)
         .subscribe(
           (productos) => {
-            this.productosCarrito = productos || [];
-         
+            // Asegúrate de que productos sea un arreglo o un arreglo vacío
+            this.productosCarrito = Array.isArray(productos) ? productos : [];
+            this.carritoVacio = this.productosCarrito.length === 0; // Actualiza el estado de carritoVacio
             this.calcularTotal();
           },
           (error) => {
             console.error('Error al obtener los productos del carrito', error);
+            this.productosCarrito = []; // Asegúrate de limpiar el carrito en caso de error
+            this.carritoVacio = true; // Actualiza el estado de carritoVacio
           }
         );
     } else {
       console.error('No se encontró el id_carrito en localStorage');
       this.productosCarrito = [];  
+      this.carritoVacio = true; // Establecer carritoVacio a true
     }
   }
 
@@ -99,6 +105,7 @@ export class VerCarritoComponent {
         () => {
           this.productosCarrito = [];
           this.totalCarrito = 0;
+          this.carritoVacio = true; // Actualiza el estado de carritoVacio
         },
         (error) => {
           console.error('Error al vaciar el carrito', error);
@@ -106,73 +113,49 @@ export class VerCarritoComponent {
       );
     }
   }
+
   generarPDF() {
     const doc = new jsPDF();
-    
+  
     try {
-      // Título de la factura
       doc.setFontSize(18);
       doc.text('Factura de Compra', 20, 20);
-      
-      // Información del cliente
-      const nombreCliente = this.userInfo.nombre ;
-      const emailCliente = this.userInfo.email ;
+    
+      const nombreCliente = this.userInfo.nombre;
+      const emailCliente = this.userInfo.email;
       const direccionCliente = this.userInfo.direccion;
-      
+  
       doc.setFontSize(12);
       doc.text(`Cliente: ${nombreCliente}`, 20, 30);
       doc.text(`Email: ${emailCliente}`, 20, 40);
       doc.text(`Dirección: ${direccionCliente}`, 20, 50);
-      
-      // Espacio para iniciar la tabla de productos
-      let startY = 70;
-      
-      // Verifica si hay productos en el carrito
-      if (this.productosCarrito.length > 0) {
-        // Encabezados de la tabla
-        doc.setFontSize(12);
-        doc.text('Producto', 20, startY);
-        doc.text('Cantidad', 100, startY);
-        doc.text('Precio Unitario', 140, startY);
-        doc.text('Total', 180, startY);
-        
-        startY += 10; // Espacio entre encabezados y productos
   
-        // Mapear productos para el PDF
-        this.productosCarrito.forEach(producto => {
-          const nombre = producto.nombre_producto || 'Producto sin nombre';
-          const cantidad = (typeof producto.cantidad === 'number' ? producto.cantidad : 0).toString();
-          const precioUnitario = (typeof producto.precio_unitario === 'number' ? producto.precio_unitario.toFixed(2) : '0.00') + '€';
-          const total = (typeof producto.cantidad === 'number' && typeof producto.precio_unitario === 'number' 
-            ? (producto.cantidad * producto.precio_unitario).toFixed(2) 
-            : '0.00') + '€';
-          
-          // Añadir los datos del producto al PDF
-          doc.text(nombre, 20, startY);
-          doc.text(cantidad, 100, startY);
-          doc.text(precioUnitario, 140, startY);
-          doc.text(total, 180, startY);
-    
-          startY += 10; // Aumentar el espacio para la siguiente línea
+      if (this.productosCarrito.length > 0) {
+        const productos = this.productosCarrito.map(producto => {
+          const nombre = producto.nombre_producto || 'Sin nombre';
+          const cantidad =  producto.cantidad ;
+          const precioUnitario =  producto.precio_unitario;
+          const total = (producto.cantidad * producto.precio_unitario).toFixed(2);
+          return [nombre, cantidad, precioUnitario, total];
         });
   
-        // Agregar total del carrito
+        autoTable(doc, {
+          head: [['Producto', 'Cantidad', 'Precio Unitario', 'Total']],
+          body: productos,
+          startY: 70
+        });
+  
         const totalTexto = `Total del Carrito: ${(this.totalCarrito || 0).toFixed(2)}€`;
-        startY += 10; // Espacio antes del total
         doc.setFontSize(14);
-        doc.text(totalTexto, 20, startY); // Texto del total
+        const finalY = (doc as any).lastAutoTable.finalY || 70;
+        doc.text(totalTexto, 20, finalY + 10); 
       } else {
-        // Si no hay productos, mostrar mensaje en PDF
-        const mensaje = 'El carrito está vacío.';
-        doc.text(mensaje, 20, startY);
+        doc.text('El carrito está vacío.', 20, 70);
       }
   
-      // Guardar el PDF
-      doc.save('factura.pdf');
+      doc.save(`factura_${this.userInfo.nombre}.pdf`);
     } catch (error) {
       console.error('Error al generar el PDF', error);
     }
   }
-  
-
 }

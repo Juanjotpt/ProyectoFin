@@ -20,11 +20,11 @@ router.post('/registro',
 
     const { nombre, email, password, apellidos, direccion, dni } = req.body;
 
-    // Inserción en la tabla usuarios
+   
     const newUser = {
       nombre,
       email,
-      password: bcrypt.hashSync(password, 8), // Encriptar la contraseña
+      password: bcrypt.hashSync(password, 8), 
       apellidos,
       direccion,
       dni,
