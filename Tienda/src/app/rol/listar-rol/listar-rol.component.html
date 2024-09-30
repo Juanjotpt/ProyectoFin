@@ -48,7 +48,14 @@
             <tr>
           <td>{{ rol.id_rol }}</td>
           <td>{{ rol.nombre_usuario }}</td>
-          <td>{{ rol.tipo ? 'Admin' : 'Cliente' }}</td>
+          <td>
+            {{
+              rol.tipo === 0 ? 'Cliente' :
+              rol.tipo === 1 ? 'Admin' :
+              rol.tipo === 2 ? 'Comercial' :
+              'Desconocido'
+            }}
+          </td>
           <td>
             <button class="btn btn-danger" (click)="borrarRol(rol.id_rol)">
               Eliminar

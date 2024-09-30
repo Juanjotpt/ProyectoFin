@@ -1,12 +1,10 @@
-
 <header class="head text-light py-3">
-  <div class="container d-flex align-items-center ">
+  <div class="container d-flex align-items-center">
     <img src="logo/TecnoLab.png" alt="Tecnolab Logo" class="logo">
     <h1 class="h1 m-0">Tecnolab</h1>
-    
   </div>
-
 </header>
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/admin">Volver</a>
@@ -20,80 +18,69 @@
           <a class="nav-link active" aria-current="page" href="/login">Logout</a>
         </li>
       </ul>
-   
     </div>
   </div>
 </nav>
 
-
 <div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="col-sm-2">ID</th>
+        <th class="col-sm-2">Nombre</th>
+        <th class="col-sm-2">Apellidos</th>
+        <th class="col-sm-2">Email</th>
+        <th class="col-sm-2">Dirección</th>
+        <th class="col-sm-2">Dni</th>
+        <th class="col-sm-2">Editar</th>
+        <th class="col-sm-2">Borrar</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(usuario of usuarios; track usuario.id_usuario) {
+      <tr>
+        <td class="col-sm-2">{{ usuario.id_usuario }}</td>
+        <td class="col-sm-2">{{ usuario.nombre }}</td>
+        <td class="col-sm-2">{{ usuario.apellidos }}</td>
+        <td class="col-sm-2">{{ usuario.email }}</td>
+        <td class="col-sm-2">{{ usuario.direccion }}</td>
+        <td class="col-sm-2">{{ usuario.dni }}</td>
+        <td class="col-sm-2">
+          <fieldset class="form-group">
+            <a class="btn btn-primary" routerLink="/usuarios/editar/{{usuario.id_usuario}}">Editar</a>
+          </fieldset>
+        </td>
+        <td>
+          <fieldset class="form-group">
+            <a class="btn btn-danger" (click)="borrarUsuario(usuario.id_usuario)">Borrar</a>
+          </fieldset>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
 
+  <!-- Botón de agregar usuario movido aquí -->
   <a class="btn btn-primary" routerLink="/usuarios/agregar">Agregar</a>
 </div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th class="col-sm-2">ID</th>
-      <th class="col-sm-2">Nombre</th>
-      <th class="col-sm-2">Apellidos</th>
-      <th class="col-sm-2">Email</th>
-      <th class="col-sm-2">Dirección</th>
-      <th class="col-sm-2">Dni</th>
-      <th class="col-sm-2">Editar</th>
-      <th class="col-sm-2">Borrar</th>
-   
-    </tr>
-  </thead>
-  <tbody>
-    @for(usuario of usuarios; track usuario.id_usuario){
-    <tr>
-      <td class="col-sm-2">{{ usuario.id_usuario }}</td>
-      <td class="col-sm-2">{{ usuario.nombre }}</td>
-      <td class="col-sm-2">{{ usuario.apellidos }}</td>
-      <td class="col-sm-2">{{ usuario.email }}</td>
-      <td class="col-sm-2">{{ usuario.direccion }}</td>
-      <td class="col-sm-2">{{ usuario.dni }}</td>
-      <td class="col-sm-2">
-        <fieldset class="form-group">
-          <a
-            class="btn btn-primary"
-            routerLink="/usuarios/editar/{{usuario.id_usuario}}"
-            >Editar</a
-          >
-        </fieldset>
-      </td>
-      <td>
-      <fieldset class="form-group">
-        <a
-          class="btn btn-danger"
-          (click)="borrarUsuario(usuario.id_usuario)"
-          >Borrar</a
-        >
-      </fieldset>
-    </td>
-  
-    </tr>
-    }
-  </tbody>
-</table>
 
-<div class="modal" tabindex="-1"role="dialog" [class.show]="mostrarModal" [ngStyle]="{'display': mostrarModal ? 'block' : 'none'}">
+<div class="modal" tabindex="-1" role="dialog" [class.show]="mostrarModal" [ngStyle]="{'display': mostrarModal ? 'block' : 'none'}">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Error al eliminar el usuario</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModal()" ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModal()"></button>
       </div>
       <div class="modal-body">
-        <p>No se puede eliminar el usuario porque está referenciado en otra tabla </p>
+        <p>No se puede eliminar el usuario porque está referenciado en otra tabla.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cerrar</button>
-        
       </div>
     </div>
   </div>
 </div>
+
 <footer class="bg-dark text-light py-4">
   <div class="container text-center">
     <p>&copy; 2024 TecnoLab. Todos los derechos reservados.</p>

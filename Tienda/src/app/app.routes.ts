@@ -17,8 +17,9 @@ import { ProductsComponent } from './products/products.component';
 import { VerCarritoComponent } from './ver-carrito/ver-carrito.component';
 import { ContactoComponent } from './contacto/contacto.component';
 import { PrivacidadComponent } from './privacidad/privacidad.component';
+import { ComercialComponent } from './comercial/comercial.component';
 
-
+// Rutas de usuarios
 const usuarioRoutes: Routes = [
   {
     path: 'usuarios',
@@ -46,73 +47,84 @@ const productoRoutes: Routes = [
     path: 'productos',
     component: ListarProductosComponent,
     canActivate: [AuthGuard],
-    data: { requiredRole: 1 }
+    data: { requiredRole: 2 }  
   },
   {
     path: 'productos/editar/:id',
     component: EditarProductosComponent,
     canActivate: [AuthGuard],
-    data: { requiredRole: 1 }
+    data: { requiredRole: 2 }  
   },
   {
     path: 'productos/agregar',
     component: EditarProductosComponent,
     canActivate: [AuthGuard],
-    data: { requiredRole: 1 }
+    data: { requiredRole: 2 }  
   },
   {
     path: 'productos/:id',
-    component: ProductsComponent
+    component: ProductsComponent,
+    
   }
 ];
 
-
+// Rutas de carrito
 const carritoRoutes: Routes = [
   {
     path: 'carritos',
     component: ListarCarritosComponent,
     canActivate: [AuthGuard],
-    data: { requiredRole: 1 }
+    data: { requiredRole: 2 } 
   },
   {
     path: 'productoscarrito',
-    component: ListarProductosCarritoComponent
+    component: ListarProductosCarritoComponent,
+    canActivate: [AuthGuard],
+    data: { requiredRole: 2 }  // Solo rol 2 puede acceder
   },
   {
     path: 'productoscarrito/editar/:id',
-    component: EditarProductosCarritoComponent
+    component: EditarProductosCarritoComponent,
+    canActivate: [AuthGuard],
+    data: { requiredRole: 2 }  // Solo rol 2 puede acceder
   },
   {
     path: 'productoscarrito/agregar',
-    component: ProductsComponent
+    component: ProductsComponent,
+    canActivate: [AuthGuard],
+    data: { requiredRole: 2 }  // Solo rol 2 puede acceder
   },
   {
     path: 'productoscarrito/borrar/:id',
-    component: ProductsComponent
+    component: ProductsComponent,
+    canActivate: [AuthGuard],
+    data: { requiredRole: 2 }  // Solo rol 2 puede acceder
   }
 ];
 
-
+// Rutas de rol
 const rolRoutes: Routes = [
   {
     path: 'rol',
     component: ListarRolComponent,
     canActivate: [AuthGuard],
-    data: { requiredRole: 1 }
+    data: { requiredRole: 1 }  // Solo rol 1 puede acceder
   },
   {
     path: 'rol/editar/:id',
     component: EditarRolComponent,
     canActivate: [AuthGuard],
-    data: { requiredRole: 1 }
+    data: { requiredRole: 1 }  // Solo rol 1 puede acceder
   },
   {
     path: 'rol/agregar',
-    component: EditarRolComponent
+    component: EditarRolComponent,
+    canActivate: [AuthGuard],
+    data: { requiredRole: 1 }  // Solo rol 1 puede acceder
   }
 ];
 
-
+// Rutas principales
 export const routes: Routes = [
   ...usuarioRoutes,
   ...productoRoutes,
@@ -126,7 +138,7 @@ export const routes: Routes = [
     path: 'admin',
     component: AdminComponent,
     canActivate: [AuthGuard],
-    data: { requiredRole: 1 }
+    data: { requiredRole: 1 }  
   },
   {
     path: 'registro',
@@ -147,6 +159,12 @@ export const routes: Routes = [
   {
     path: 'privacidad',
     component: PrivacidadComponent
+  },
+  {
+    path: 'comercial',
+    component: ComercialComponent,
+    canActivate: [AuthGuard],
+    data: { requiredRole: 2 }  
   },
   {
     path: '**',

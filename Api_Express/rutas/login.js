@@ -102,18 +102,28 @@ router.post('/', (req, res) => {
         console.error('Error al obtener el carrito del usuario:', err);
         return res.status(500).send('Error en el servidor al obtener el carrito');
       }
-
+    
+      // Si no hay carrito, dejamos idCarrito como null
       const idCarrito = resultCarrito.length > 0 ? resultCarrito[0].id_carrito : null;
-
+    
       // Crear el token con el ID del usuario, el rol y el carrito
-      const payload = { id: usuario.id_usuario, rol_tipo: usuario.rol_tipo, nombre: usuario.nombre, id_carrito: idCarrito, email: usuario.email, direccion: usuario.direccion };
+      const payload = {
+        id: usuario.id_usuario,
+        rol_tipo: usuario.rol_tipo,
+        nombre: usuario.nombre,
+        id_carrito: idCarrito,
+        email: usuario.email,
+        direccion: usuario.direccion,
+      };
       const token = jwt.sign(payload, secret_key, { expiresIn: '1h' });
-
-     
+    
+      // Redirigir según el rol del usuario
       if (usuario.rol_tipo === 1) {
-        res.json({ token, redirectTo: '/admin' });
+        res.json({ token, redirectTo: '/admin' });  // Rol admin
       } else if (usuario.rol_tipo === 0) {
-        res.json({ token, redirectTo: '/cliente' });
+        res.json({ token, redirectTo: '/cliente' });  // Rol cliente
+      } else if (usuario.rol_tipo === 2) {
+        res.json({ token, redirectTo: '/comercial' });  // Rol comercial
       } else {
         res.status(403).send('Rol no reconocido');
       }

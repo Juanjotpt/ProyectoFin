@@ -1,15 +1,13 @@
+
+
 body {
-    background-color: #162656;
-  }
- 
-  header {
+    background-color: #f0f8ff;
+}
+header {
     width: 100%;
     display: flex;
     align-items: center;
     background: linear-gradient(90deg, #2450d2, #f6f9fc);
-  }
-  h2{
-    color: aqua;
   }
   
   header .container {
@@ -39,25 +37,9 @@ body {
   .navbar a{
     color: #fff;
   }
-  .card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .card-img-top {
-    height: 400px; 
-    object-fit: cover; 
-  }
-  
-  .card-body {
-    flex-grow: 1; 
-  }
-  
-  .card h5, .card p {
-    margin: 0; 
-  }
-  
-  .card-footer {
-    margin-top: auto; 
-  }
+
+.gestion-link:hover {
+    background-color: #343a40 !important;
+    color: #ffffff !important;
+    transition: background-color 0.3s ease;
+}
