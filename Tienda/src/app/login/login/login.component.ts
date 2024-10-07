@@ -12,6 +12,7 @@ import { jwtDecode } from 'jwt-decode';
 import { RouterLink } from '@angular/router';
 
 
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -22,6 +23,7 @@ import { RouterLink } from '@angular/router';
 export class LoginComponent {
   loginForm: FormGroup;
 
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -31,6 +33,8 @@ export class LoginComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
+
+ 
   }
   //Vaciamos localStorage
   ngOnInit(): void {

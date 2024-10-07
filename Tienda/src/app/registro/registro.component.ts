@@ -40,7 +40,7 @@ export class RegistroComponent {
 
     this.http.post('http://localhost:3000/login/registro', formData).subscribe({
       next: (response: any) => {
-        // Redirige al usuario a la página de inicio de sesión o donde prefieras
+     
         this.router.navigate(['/login']);
         this.showErrorModal(); 
       },

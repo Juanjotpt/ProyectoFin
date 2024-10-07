@@ -1,0 +1,123 @@
+<div class="container-fluid p-0">
+    <header class="head text-light py-3">
+        <div class="container d-flex align-items-center">
+            <img src="logo/TecnoLab.png" alt="Tecnolab Logo" class="logo">
+            <h1 class="h1 m-0">Tecnolab</h1>
+        </div>
+    </header>
+    
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" routerLink="/login">Login</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/registro">Registro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/contacto">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="inicio text-light text-center py-5" style="background-color: #2450d2;">
+        <div class="container">
+            <h2 class="mb-4">Bienvenido a Tecnolab</h2>
+            <p>Explora nuestra amplia gama de productos tecnológicos de última generación. Encuentra lo que necesitas para mejorar tu experiencia digital.</p>
+        </div>
+    </section>
+
+    <div class="container d-flex flex-column justify-content-center align-items-center">
+        <div id="carouselSmall" class="carousel slide mb-4" data-bs-ride="carousel" style="max-width: 50%; background-color: transparent;">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="imagenes/tecladoInicio.png" class="d-block w-100" alt="Teclado">
+                    <div class="text-center mt-2">
+                        <h5>Los mejores teclados</h5>
+                    </div>
+                </div>
+           
+                <div class="carousel-item">
+                    <img src="imagenes/laptop.jpg" class="d-block w-100" alt="Laptop">
+                    <div class="text-center mt-2">
+                        <h5>Las mejores laptops</h5>
+                        <p>Descripción breve de la imagen 2.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="imagenes/auriculares.png" class="d-block w-100" alt="Auriculares">
+                    <div class="text-center mt-2">
+                        <h5>Auriculares de alta calidad</h5>
+                        <p>Descripción breve de la imagen 3.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="imagenes/ordenador.png" class="d-block w-100" alt="Ordenador">
+                    <div class="text-center mt-2">
+                        <h5>Ordenadores de última generación</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+
+    <section class="productos text-dark text-center py-5">
+        <div class="container">
+            <h2 class="mb-4">Nuestros Productos</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4"> <!-- Agregar margen inferior -->
+                    <div class="producto-card p-4" style="background-color: #2e3bc7; border-radius: 8px;">
+                        <h3>Laptops</h3>
+                        <p>Las laptops más potentes del mercado, ideales para gaming y trabajo profesional.</p>
+                        <p>Desde $899.99, con procesadores de última generación y pantallas 4K.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4"> <!-- Agregar margen inferior -->
+                    <div class="producto-card p-4" style="background-color: #e9ecef; border-radius: 8px;">
+                        <h3>Ratones</h3>
+                        <p>Ratones ergonómicos con tecnología inalámbrica, perfectos para largas horas de uso.</p>
+                        <p>Precios a partir de $49.99.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4"> <!-- Agregar margen inferior -->
+                    <div class="producto-card p-4" style="background-color: #e9ecef; border-radius: 8px;">
+                        <h3>Pantallas</h3>
+                        <p>Pantallas LED de alta definición, ideales para diseñadores y gamers.</p>
+                        <p>Disponibles desde $199.99, con tamaños que van desde 24 hasta 32 pulgadas.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-6 mb-4"> <!-- Agregar margen inferior -->
+                    <div class="producto-card p-4" style="background-color: #e9ecef; border-radius: 8px;">
+                        <h3>Auriculares</h3>
+                        <p>Auriculares con cancelación de ruido y sonido envolvente.</p>
+                        <p>Precios desde $89.99, ideales para música, juegos y llamadas.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4"> <!-- Agregar margen inferior -->
+                    <div class="producto-card p-4" style="background-color: #e9ecef; border-radius: 8px;">
+                        <h3>Accesorios</h3>
+                        <p>Todo lo que necesitas: teclados, bases de carga y más, desde $19.99.</p>
+                        <p>Mejora tu experiencia tecnológica con nuestros productos de alta calidad.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+
+    <footer class="bg-dark text-light py-3 mt-auto">
+        <div class="container text-center">
+            <p class="m-0">&copy; 2024 Tecnolab. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</div>

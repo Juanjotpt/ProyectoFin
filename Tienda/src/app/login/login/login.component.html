@@ -1,12 +1,11 @@
 <div class="container-fluid p-0">
-
   <header class="head text-light py-3">
-    <div class="container d-flex align-items-center ">
+    <div class="container d-flex align-items-center">
       <img src="logo/TecnoLab.png" alt="Tecnolab Logo" class="logo">
       <h1 class="h1 m-0">Tecnolab</h1>
     </div>
-  
   </header>
+  
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand" routerLink="/login">Login</a>
@@ -26,10 +25,11 @@
     </div>
   </nav>
 
-
-   <body>
-  <div class="container d-flex justify-content-center align-items-center min-vh-100">
-    <div class="row justify-content-center w-100">
+  <body>
+  
+    <div class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
+      
+    
       <div class="col-md-6 col-lg-4">
         <div class="card shadow-sm">
           <div class="card-body">
@@ -66,30 +66,11 @@
         </div>
       </div>
     </div>
-  </div>
-</body>
+  </body>
 
   <footer class="bg-dark text-light py-3 mt-auto">
     <div class="container text-center">
       <p class="m-0">&copy; 2024 Tecnolab. Todos los derechos reservados.</p>
     </div>
   </footer>
-</div>
-
-
-<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="errorModalLabel">Error de Autenticación</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Las credenciales no son correctas. Por favor, intenta de nuevo.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
 </div>

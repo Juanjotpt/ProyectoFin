@@ -1,0 +1,85 @@
+body {
+  margin: 0;
+}
+
+header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(90deg, #2450d2, #f6f9fc);
+  margin-bottom: 20px; /* Añadir margen inferior */
+}
+
+header .container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+header .logo {
+  width: 100px;
+  height: auto;
+}
+
+header .h1 {
+  margin: 0;
+  text-shadow: 5px 2px 3px rgba(0, 1, 3, 0.5);
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navbar {
+  background: linear-gradient(90deg, #2450d2, #a6e2c8);
+}
+
+.navbar a {
+  color: #fff;
+}
+
+.inicio {
+  margin-bottom: 20px; /* Se puede ajustar el margen inferior */
+}
+
+.btn-primary {
+  border-radius: 25px;
+}
+
+#carouselSmall {
+  margin-top: 0px; 
+}
+
+.carousel-inner img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.carousel-item {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.carousel-item.active {
+  opacity: 1;
+}
+.producto-card {
+  transition: transform 0.2s; /* Para un efecto de hover */
+  background: linear-gradient(90deg, #2450d2, #a6e2c8);
+}
+
+.producto-card:hover {
+  transform: scale(1.02); /* Aumentar ligeramente el tamaño al pasar el cursor */
+}
+
+h3 {
+  margin-bottom: 15px; /* Espaciado entre el título y el texto */
+}
+
+footer {
+  margin-top: 60px; /* Se puede ajustar según sea necesario */
+  padding-top: 20px; /* Espacio adicional dentro del footer */
+  padding-bottom: 20px; /* Espacio adicional dentro del footer */
+}

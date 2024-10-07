@@ -46,6 +46,8 @@
         <div class="d-flex justify-content-between mb-3">
           <span class="text-muted">Producto:</span>
           <span class="font-weight-bold">{{ producto.nombre_producto }}</span>
+       
+       
         </div>
         <div class="d-flex justify-content-between mb-3">
           <span class="text-muted">Cantidad:</span>
@@ -58,7 +60,9 @@
         <div class="d-flex justify-content-between mb-3">
           <span class="text-muted">Precio Unitario:</span>
           <span>{{ producto.precio_unitario }}€</span>
+          
         </div>
+        
         <hr class="my-4" />
         <div class="d-flex justify-content-between mb-3">
           <span class="font-weight-bold text-uppercase">Total:</span>
@@ -77,6 +81,20 @@
     <button class="btn btn-info" (click)="generarPDF()">Generar Factura</button>
   </div>
 </ng-template>
+
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="errorModalLabel">No puedes agregar más unidades. Stock máximo alcanzado.</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <footer class="bg-dark text-light py-4">
   <div class="container text-center">

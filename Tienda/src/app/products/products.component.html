@@ -48,6 +48,7 @@
       <h1 class="text-primary">{{ producto.nombre_producto }}</h1>
       <p class="lead">{{ producto.descripcion }}</p>
       <p class="text-muted h4">Precio: <span class="text-success">{{ producto.precio_unitario | currency:'EUR' }}</span></p>
+      <p class="lead">Actualmente quedan {{producto.stock}} en stock</p>      
 
      
       <button class="btn btn-lg btn-outline-primary mt-4" (click)="agregarAlCarrito()">

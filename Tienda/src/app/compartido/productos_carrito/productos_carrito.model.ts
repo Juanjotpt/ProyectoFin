@@ -5,7 +5,8 @@ export class ProductosCarritoModel {
       public id_carrito: number,           
       public cantidad: number,
       public nombre_producto: string,     
-      public precio_unitario: number                
+      public precio_unitario: number,    
+      public stock: number,            
     ) {}
   }
   

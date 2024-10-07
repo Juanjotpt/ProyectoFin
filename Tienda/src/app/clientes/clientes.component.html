@@ -46,13 +46,14 @@
         <div *ngFor="let producto of productos" class="col-md-4 mb-4">
           <div class="card">
             <img   [src]="'imagenes/' + producto.imagen" 
-            [srcset]="'imagenes/' + producto.imagen + ' 400w, ' + 'imagenes/' + producto.imagen+ ' 800w, ' + 'imagenes/' + producto.imagen + ' 1200w'"
-            sizes="(max-width: 600px) 400px, (max-width: 1200px) 800px, 1200px"
+            [srcset]="'imagenes/' + producto.imagen + ' 300w, ' + 'imagenes/' + producto.imagen+ ' 300w, ' + 'imagenes/' + producto.imagen + ' 300w'"
+            sizes="(max-width: 400px) 400px, (max-width: 400px) 400px, 400px"
             class="card-img-top"
             alt="Producto">
             <div class="card-body">
               <h5 class="card-title">{{producto.nombre_producto}}</h5>
               <p class="card-text">{{producto.descripcion}}</p>
+              
               <a routerLink="/productos/{{producto.id_producto}}" class="btn btn-primary">Ver Más</a>
             </div>
           </div>

@@ -42,7 +42,8 @@ router.get("/", (req, res) => {
         pc.id_carrito, 
         pc.cantidad, 
         p.nombre_producto, 
-        p.precio_unitario 
+        p.precio_unitario, 
+        p.stock
       FROM productos_carrito pc
       JOIN productos p ON pc.id_producto = p.id_producto
       WHERE pc.id_carrito = ?`;

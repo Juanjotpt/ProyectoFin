@@ -18,6 +18,7 @@ import { VerCarritoComponent } from './ver-carrito/ver-carrito.component';
 import { ContactoComponent } from './contacto/contacto.component';
 import { PrivacidadComponent } from './privacidad/privacidad.component';
 import { ComercialComponent } from './comercial/comercial.component';
+import { HomeComponent } from './home/home.component';
 
 // Rutas de usuarios
 const usuarioRoutes: Routes = [
@@ -80,19 +81,19 @@ const carritoRoutes: Routes = [
     path: 'productoscarrito',
     component: ListarProductosCarritoComponent,
     canActivate: [AuthGuard],
-    data: { requiredRole: 2 }  // Solo rol 2 puede acceder
+    data: { requiredRole: 2 }  
   },
   {
     path: 'productoscarrito/editar/:id',
     component: EditarProductosCarritoComponent,
     canActivate: [AuthGuard],
-    data: { requiredRole: 2 }  // Solo rol 2 puede acceder
+    data: { requiredRole: 2 }  
   },
   {
     path: 'productoscarrito/agregar',
     component: ProductsComponent,
     canActivate: [AuthGuard],
-    data: { requiredRole: 2 }  // Solo rol 2 puede acceder
+    data: { requiredRole: 2 }  
   },
   {
     path: 'productoscarrito/borrar/:id',
@@ -102,29 +103,29 @@ const carritoRoutes: Routes = [
   }
 ];
 
-// Rutas de rol
+
 const rolRoutes: Routes = [
   {
     path: 'rol',
     component: ListarRolComponent,
     canActivate: [AuthGuard],
-    data: { requiredRole: 1 }  // Solo rol 1 puede acceder
+    data: { requiredRole: 1 }  
   },
   {
     path: 'rol/editar/:id',
     component: EditarRolComponent,
     canActivate: [AuthGuard],
-    data: { requiredRole: 1 }  // Solo rol 1 puede acceder
+    data: { requiredRole: 1 } 
   },
   {
     path: 'rol/agregar',
     component: EditarRolComponent,
     canActivate: [AuthGuard],
-    data: { requiredRole: 1 }  // Solo rol 1 puede acceder
+    data: { requiredRole: 1 }  
   }
 ];
 
-// Rutas principales
+
 export const routes: Routes = [
   ...usuarioRoutes,
   ...productoRoutes,
@@ -167,8 +168,12 @@ export const routes: Routes = [
     data: { requiredRole: 2 }  
   },
   {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
     path: '**',
-    redirectTo: '/login',
+    redirectTo: '/home',
     pathMatch: 'full',
   },
 ];
