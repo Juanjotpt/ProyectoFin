@@ -70,3 +70,23 @@
     <p><a routerLink="/privacidad" class="text-light">Política de Privacidad</a> | <a routerLink="/terminos" class="text-light">Términos y Condiciones</a></p>
   </div>
 </footer>
+<div class="modal" [ngClass]="{'show': mostrarModal}" (click)="cerrarModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <span class="close" (click)="cerrarModal()">&times;</span>
+    <h2>¡Éxito!</h2>
+    <p>Artículo añadido a la cesta</p>
+    <button (click)="cerrarModal()">Cerrar</button>
+  </div>
+
+</div>
+<div class="modal" [ngClass]="{'show': mostrarModalConRedireccion}" (click)="cerrarModalRedireccion()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <span class="close" (click)="cerrarModalRedireccion()">&times;</span>
+    <h2>Necesitas iniciar sesión para añadir tus productos al carrito.</h2>
+    <div class="button-container">
+      <button [routerLink]="['/login']">Iniciar sesión</button>
+      <button (click)="cerrarModalRedireccion()">Cancelar</button>
+    </div>
+  </div>
+</div>
+

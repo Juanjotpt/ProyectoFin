@@ -4,6 +4,8 @@ import { ProductoService } from '../compartido/producto/producto.service';
 import { ProductoModel } from '../compartido/producto/producto.model';
 import { CommonModule } from '@angular/common';
 import { ProductosCarritoService } from '../compartido/productos_carrito/productos_carrito.service';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -13,6 +15,10 @@ import { ProductosCarritoService } from '../compartido/productos_carrito/product
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
+
+  
+  mostrarModal = false;
+  mostrarModalConRedireccion = false;
   producto: ProductoModel | undefined; 
   productos: ProductoModel[] = []; 
 
@@ -53,20 +59,31 @@ export class ProductsComponent implements OnInit {
 
     if (!idCarrito) {
       console.error('No se encontró el id_carrito en el localStorage');
-      return;
+      this.mostrarModalConRedireccion = true;
     }
 
    
     this.productosCarritoService.agregarProductoCarrito(this.producto.id_producto, 1).subscribe(
       response => {
         console.log('Producto agregado al carrito:', response);
-        
+        this.mostrarModal = true; 
       },
       error => {
         console.error('Error al agregar el producto al carrito', error);
       }
     );
   }
+
+  cerrarModal(): void {
+    this.mostrarModal = false;
+  }
+  cerrarModalRedireccion(): void {
+    this.mostrarModalConRedireccion =
+     false; 
+  }
+
+
+ 
 }
 
 

@@ -162,7 +162,7 @@ export class VerCarritoComponent {
         doc.setFontSize(14);
         doc.text(`Subtotal: ${subtotal} €`, 20, finalY + 10);
         doc.text(`IVA (21%): ${iva.toFixed(2)} €`, 20, finalY + 20);
-        doc.text(`Total con IVA: ${totalConIva} €`, 20, finalY + 30);
+        doc.text(`Total con IVA: ${totalConIva.toFixed(2)} €`, 20, finalY + 30);
   
       } else {
         doc.text('El carrito está vacío.', 20, 70);
