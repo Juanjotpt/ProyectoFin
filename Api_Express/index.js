@@ -9,7 +9,7 @@ const PUERTO = 3000;
 
 const sqlTables = fs.readFileSync("tables.sql", "utf8");
 
-// Leer el contenido del archivo SQL
+
 const sqlUsuarios = fs.readFileSync("usuarios.sql", "utf8");
 
 const queries1 = sqlUsuarios
@@ -91,13 +91,13 @@ conexion.connect((error) => {
   app.use("/login", loginRoutes);
   
 
-  // Inicia el servidor después de ejecutar el script SQL
+
   app.listen(PUERTO, () => {
     console.log(`Servidor OK en ${PUERTO}`);
   });
 });
 
-// Ruta raíz que responde con un archivo HTML
+
 app.get("/", (req, res) => {
   res.sendFile("../Tienda/src/index.html", { root: __dirname });
 });

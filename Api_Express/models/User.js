@@ -1,7 +1,6 @@
 const conexion = require('./conexion');
 const bcrypt = require('bcryptjs');
 
-// Verifica si el usuario existe, si la contraseña es correcta y si el rol es el esperado
 const verificarUsuario = (email, password, callback) => {
   const query = `
     SELECT 
